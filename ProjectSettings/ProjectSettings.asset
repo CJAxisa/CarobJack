@@ -578,11 +578,13 @@ PlayerSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Collab: 0
+    UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: ea3c7f8a-0209-4e19-8b17-ea0dc283ea6d
+  projectName: beans
+  organizationId: andrew-peters-4410674
   cloudEnabled: 0
   enableNewInputSystem: 0
