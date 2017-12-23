@@ -16,16 +16,16 @@ public class CollisionDetector : MonoBehaviour
 	void Start ()
 	{
 		//Length of the Ray is distance from center to edge
-		LengthOfRay = GetComponent<Collider>().bounds.extents.y;
+		LengthOfRay = GetComponent<Collider>().bounds.extents.x;
 		//Initialize DirectionFactor for right direction
-		DirectionFactor = Mathf.Sign (Vector3.right.x);
+		DirectionFactor = Mathf.Sign (Vector3.right.z);
 
 	}
 
 	void Update ()
 	{
 		// First ray origin point for this frame
-		StartPoint = new Vector3 (GetComponent<Collider>().bounds.min.y + margin, transform.position.y, transform.position.z);
+		StartPoint = new Vector3 (GetComponent<Collider>().bounds.min.x + margin, transform.position.y, transform.position.z);
 		if (!IsCollidingHorizontally ()) {
 			transform.Translate (Vector3.right * MovingForce * Time.deltaTime * DirectionFactor);
 		}
@@ -34,7 +34,7 @@ public class CollisionDetector : MonoBehaviour
 	bool IsCollidingHorizontally ()
 	{
 		Origin = StartPoint;
-		DistanceBetweenRays = (GetComponent<Collider>().bounds.size.y - 2 * margin) / (NoOfRays - 1);
+		DistanceBetweenRays = (GetComponent<Collider>().bounds.size.x - 2 * margin) / (NoOfRays - 1);
 		for (i = 0; i<NoOfRays; i++) {
 			// Ray to be casted.
 			ray = new Ray (Origin, Vector3.right * DirectionFactor);
@@ -46,7 +46,7 @@ public class CollisionDetector : MonoBehaviour
 				DirectionFactor = -DirectionFactor;
 				return true;
 			}
-			Origin += new Vector3 (0, DistanceBetweenRays, 0);
+			Origin += new Vector3 (DistanceBetweenRays, 0, 0);
 		}
 		return false;
 
