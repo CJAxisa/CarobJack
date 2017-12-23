@@ -16,7 +16,8 @@ public class CollisionDetector : MonoBehaviour
 	void Start ()
 	{
 		//Length of the Ray is distance from center to edge
-		LengthOfRay = GetComponent<Collider>().bounds.extents.x;
+		LengthOfRay = (GetComponent<Collider>().bounds.max.x/((GetComponent<Collider>().bounds.max.x)*10))/2;
+		print("Length of ray = " + LengthOfRay + " (the smaller the ray, the closer our enemy will collide with the wall)");
 		//Initialize DirectionFactor for right direction
 		DirectionFactor = Mathf.Sign (Vector3.right.z);
 
@@ -41,7 +42,7 @@ public class CollisionDetector : MonoBehaviour
 			//Draw ray in scene view to see visually. Remember visual length is not actual length
 			Debug.DrawRay (Origin, Vector3.right * DirectionFactor, Color.yellow);
 			if (Physics.Raycast (ray, out HitInfo, LengthOfRay)) {
-				print ("Collided With " + HitInfo.collider.gameObject.name);
+				print ("Collided With " + HitInfo.collider.gameObject.name + "; " + HitInfo.distance + " away from gameobject");
 				// Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
 				DirectionFactor = -DirectionFactor;
 				return true;
