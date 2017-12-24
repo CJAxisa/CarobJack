@@ -4,6 +4,7 @@ using System.Collections;
 public class CollisionDetector : MonoBehaviour
 {
 	public float MovingForce;
+	Collider col;
 	Vector3 StartPoint;
 	Vector3 Origin;
 	public int NoOfRays = 10;
@@ -20,13 +21,13 @@ public class CollisionDetector : MonoBehaviour
 		print("Length of ray = " + LengthOfRay + " (the smaller the ray, the closer our enemy will collide with the wall)");
 		//Initialize DirectionFactor for right direction
 		DirectionFactor = Mathf.Sign (Vector3.right.z);
-
+		col = GetComponent<Collider>();
 	}
 
 	void Update ()
 	{
-		// First ray origin point for this frame
-		StartPoint = new Vector3 (GetComponent<Collider>().bounds.min.x + margin, transform.position.y, transform.position.z);
+		//Debug.Log("half of the boundary is at y = " + (col.bounds.max.y + col.bounds.min.y)*0.5f);
+		StartPoint = new Vector3 (GetComponent<Collider>().bounds.min.x + margin, (col.bounds.max.y + col.bounds.min.y)*0.5f, transform.position.z);
 		if (!IsCollidingHorizontally ()) {
 			transform.Translate (Vector3.right * MovingForce * Time.deltaTime * DirectionFactor);
 		}

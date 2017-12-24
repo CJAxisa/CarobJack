@@ -20,9 +20,9 @@ public class Mover : MonoBehaviour {
     // Use this for initialization
     void Start () {
         jumpsLeft = numJumps;
-        
+
 	}
-	
+
 	// Update is called once per frame
 	void LateUpdate () {
         float movement = Input.GetAxis("Horizontal");
@@ -35,12 +35,12 @@ public class Mover : MonoBehaviour {
 
     void Jump()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Space)&&jumpsLeft>0)
         {
             jumpsLeft--;
             isGrounded = false;
-            velocity.y += jumpHeight;            
+            velocity.y += jumpHeight;
             //Debug.Log("weeenr");
         }
 
@@ -63,12 +63,12 @@ public class Mover : MonoBehaviour {
 
     public void checkForPlatform()
     {
-        
+
         /*foreach (GameObject p in platforms)
         {
-            //AABB collision                
-            if (gameObject.transform.position.x- gameObject.GetComponent<SpriteRenderer>().size.x * 0.5f < p.transform.position.x+p.GetComponent<SpriteRenderer>().size.x*0.5f 
-                && gameObject.transform.position.x +  gameObject.GetComponent<SpriteRenderer>().size.x * 0.5f > p.transform.position.x - p.GetComponent<SpriteRenderer>().size.x * 0.5f 
+            //AABB collision
+            if (gameObject.transform.position.x- gameObject.GetComponent<SpriteRenderer>().size.x * 0.5f < p.transform.position.x+p.GetComponent<SpriteRenderer>().size.x*0.5f
+                && gameObject.transform.position.x +  gameObject.GetComponent<SpriteRenderer>().size.x * 0.5f > p.transform.position.x - p.GetComponent<SpriteRenderer>().size.x * 0.5f
                 && gameObject.transform.position.y -gameObject.GetComponent<SpriteRenderer>().size.x *0.5f < p.transform.position.y + p.GetComponent<SpriteRenderer>().size.y *0.5f
                 && gameObject.transform.position.y + gameObject.GetComponent<SpriteRenderer>().size.x * 0.5f > p.transform.position.y - p.GetComponent<SpriteRenderer>().size.y * 0.5f)
             {
@@ -80,12 +80,15 @@ public class Mover : MonoBehaviour {
         Ray rae = new Ray(transform.position, Vector3.down * collDist);
         //Draw ray on screen to see visually. Remember visual length is not actual length.
         Debug.DrawRay(transform.position, Vector3.down * collDist, Color.yellow);
-        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y))
+        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f))
         {
+			 // Debug.Log("BIG WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEn");
             print("Collided With " + hitInfo.collider.gameObject.name);
             // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
             isGrounded = true;
-            Vector3 newPos = new Vector3(transform.position.x,hitInfo.transform.position.y+gameObject.GetComponent<Collider2D>().bounds.size.y+0.002f, 0f);
+            //Vector3 newPos = new //Vector3(transform.position.x,hitInfo.transform.position.y+gameObject.GetComponent<Collider2D>().bounds.size.y+0.002f, 0f);
+				Vector3 newPos = new Vector3(transform.position.x,hitInfo.transform.position.y+hitInfo.collider.bounds.size.y*0.5f+gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f+0.002f, 0f);
+				//Debug.Log("New x: " +transform.position.x+ " New y: " +transform.position.y+ "New Z: " +transform.position.z);
             transform.position = newPos;
         }
         else
@@ -93,7 +96,7 @@ public class Mover : MonoBehaviour {
             isGrounded = false;
         }
 
-      
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
