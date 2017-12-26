@@ -6,6 +6,6 @@ public class FireTome : MonoBehaviour {
 	public GameObject[] flames;
 	bool inUse;
 
-	
+
 
 }

@@ -80,9 +80,8 @@ public class Mover : MonoBehaviour {
         Ray rae = new Ray(transform.position, Vector3.down * collDist);
         //Draw ray on screen to see visually. Remember visual length is not actual length.
         Debug.DrawRay(transform.position, Vector3.down * collDist, Color.yellow);
-        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f))
+        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f))   // put an && that checks that your position is above the platform to fix snapping from below
         {
-			 // Debug.Log("BIG WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEn");
             print("Collided With " + hitInfo.collider.gameObject.name);
             // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
             isGrounded = true;
