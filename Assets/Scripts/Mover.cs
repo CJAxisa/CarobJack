@@ -40,7 +40,7 @@ public class Mover : MonoBehaviour {
         {
             jumpsLeft--;
             isGrounded = false;
-            velocity.y += jumpHeight;
+            velocity.y = jumpHeight;
             //Debug.Log("weeenr");
         }
 
