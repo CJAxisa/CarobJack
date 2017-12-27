@@ -11,7 +11,9 @@ public class TomeManager : MonoBehaviour {
   private List<Tome> inventory;
   private int tomeIndex;
 
-  // private Tome current;
+  private Tome current;
+	private Tome other;
+	private bool inUse;
   // keeps track of current item - index
   // general tome object = Tome tome;
   // to call functions for each tome: compare the string value of the current index
@@ -32,6 +34,9 @@ public class TomeManager : MonoBehaviour {
   void Start() {
     inventory = new List<Tome>();
     tomeIndex = 0;
+		current = gameObject.GetComponent<FireTome>(); // <--- THIS IS HOW YOU CHANGE THE TOME OBJECT TYPE
+		other = current;
+		inUse = false;
   }
 
   void Update() {
@@ -59,13 +64,24 @@ public class TomeManager : MonoBehaviour {
 	  }
 	 //to use tome
 	 /* Could use mouse click */
-   if(Input.GetMouseButtonDown(0)) {
+   /*if(Input.GetMouseButtonDown(0)) {
      // tome.use();
      // snapping for fire tome will go into that method, NOT here
      // this is bc each tome has different behaviour - for example jump tome
      // does not require aiming. no reason to execute that code when it's not needed
      Debug.Log("Used Tome!");
-   }
+   } */
+	 if(Input.GetMouseButtonDown(0)) {
+		 inUse = true;
+		 //current.use(inUse);
+		 other.use(inUse);
+		 Debug.Log("Used Tome!");
+	 }
+	 if(Input.GetMouseButtonUp(0)) {
+		 inUse = false;
+		 //current.use(inUse);
+		 other.use(inUse);
+	 }
 
 	  Debug.Log(tomeIndex);
   }

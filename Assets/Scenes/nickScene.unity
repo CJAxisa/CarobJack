@@ -392,7 +392,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.37146577, y: 0.31342506}
@@ -410,6 +410,7 @@ GameObject:
   - component: {fileID: 685394323}
   - component: {fileID: 685394322}
   - component: {fileID: 685394326}
+  - component: {fileID: 685394327}
   m_Layer: 0
   m_Name: PlayerBoi
   m_TagString: Untagged
@@ -432,7 +433,6 @@ MonoBehaviour:
   maxSpeed: 10
   jumpHeight: 10
   gravity: 0.4
-  collDist: 4
   platforms: []
   isGrounded: 0
   numJumps: 2
@@ -528,6 +528,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dda42e1068d3d4eb9234cad13cfd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &685394327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 685394321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f072265ea50dc947a4582c808b032f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tomeName: fire
+  isActive: 0
+  flames: []
 --- !u!1 &777195712
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,7 +710,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -795,7 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovingForce: 3
-  NoOfRays: 10
+  LengthOfRay: 0.01
 --- !u!65 &1412364496
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -803,7 +817,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1412364492}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5.39, y: 5.23, z: 0.2}
@@ -846,7 +860,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.37146577, y: 0.31342506}
@@ -890,7 +904,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.37146577, y: 0.31342506}

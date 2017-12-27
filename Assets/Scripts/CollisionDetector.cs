@@ -5,7 +5,7 @@ public class CollisionDetector : MonoBehaviour
 {
 	public float MovingForce;
 	Collider2D col;
-	
+
     public float LengthOfRay;
     int i;
 	RaycastHit HitInfo;
@@ -33,18 +33,27 @@ public class CollisionDetector : MonoBehaviour
 
 	bool IsCollidingHorizontally ()
 	{
-		
 			// Ray to be casted.
-			ray = new Ray (transform.position, Vector3.right * DirectionFactor);
+			/* original ray origin via Nick below */
+			Vector3 origin = new Vector3(col.bounds.min.x + margin, (col.bounds.min.y + col.bounds.max.y) * 0.5f, transform.position.z);
+			ray = new Ray (origin, Vector3.right * DirectionFactor);
+			/* original ray origin via Nick above */
+
+			/* CJ's way of casting the ray below*/
+			//CJ: ray = new Ray (transform.position, Vector3.right * DirectionFactor);
+			/* CJ's way of casting the ray above*/
+
 			//Draw ray in scene view to see visually. Remember visual length is not actual length
-			Debug.DrawLine(transform.position,transform.position+Vector3.right * LengthOfRay);
+			//CJ: Debug.DrawLine(origin,transform.position+Vector3.right * LengthOfRay, Color.yellow);
+			Debug.DrawRay (origin, Vector3.right * DirectionFactor, Color.yellow);
+
 			if (Physics.Raycast (ray, out HitInfo, LengthOfRay)) {
 				//  print ("Collided With " + HitInfo.collider.gameObject.name + "; " + HitInfo.distance + " away from gameobject");
 				// Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)
 				DirectionFactor = -DirectionFactor;
 				return true;
 			}
-		
+
 		return false;
 	}
 	/* */

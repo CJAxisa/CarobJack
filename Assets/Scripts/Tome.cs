@@ -8,10 +8,10 @@ namespace Tomes {
 		public bool isActive = false;
 		/* private bool isActive*/
 
-		public abstract void use();
+		public abstract void use(bool inUse);
 
-		public void toggle() {
-			isActive = !isActive;
-		}
+		//public void toggle() {
+		//	isActive = !isActive;
+		//}
 	}
 }

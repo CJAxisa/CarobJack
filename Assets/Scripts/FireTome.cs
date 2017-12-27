@@ -5,12 +5,12 @@ using UnityEngine;
 namespace Tomes {
 	public class FireTome : Tome {
 		public GameObject[] flames;
-		bool inUse;
+		//bool inUse;
 		bool toggle;
 
-		public FireTome() {
+		/*public FireTome() {
 			tomeName = "fire";
-		}
+		}*/
 
 		void Start() {
 			flames = GameObject.FindGameObjectsWithTag("Flame");
@@ -23,18 +23,20 @@ namespace Tomes {
 		}
 
 		void Update() {
-			if(Input.GetMouseButtonDown(0)) {
+			/*if(Input.GetMouseButtonDown(0)) {
 				inUse = true;
 				use();
 			}
 			if(Input.GetMouseButtonUp(0)) {
 				inUse = false;
 				use();
-			}
+			}*/
 		}
 
-		public override void use() {
+		public override void use(bool inUse) {
 			/* Set each flame object to inUse*/
+			//flames = GameObject.FindGameObjectsWithTag("Flame");
+
 			flames[0].SetActive(inUse);
 			flames[1].SetActive(inUse);
 			flames[2].SetActive(inUse);
