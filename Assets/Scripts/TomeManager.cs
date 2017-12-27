@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tomes;
 
+/** This is the "inventory"
+ *	This script will be attatched to the player object
+ *	This script handles tome selection
+ */
 public class TomeManager : MonoBehaviour {
+  private List<Tome> inventory;
+  private int tomeIndex;
 
-  private Dictionary<string, bool> inventory;
-  private List<string> indexMap;
-  private int currentTomeIndex;
-  private string currentTomeName;
-  //private Tome current;
+  // private Tome current;
   // keeps track of current item - index
   // general tome object = Tome tome;
   // to call functions for each tome: compare the string value of the current index
@@ -25,32 +28,32 @@ public class TomeManager : MonoBehaviour {
   // inventory["fire"] is the bool associated to the key "fire" in inventory
   // (if inventory[name]) { current = new FireTome; }
 
+
   void Start() {
-    inventory = new Dictionary<string, bool>();
-    indexMap = new List<string>();
-    currentTomeIndex = 0;
+    inventory = new List<Tome>();
+    tomeIndex = 0;
   }
 
   void Update() {
-    //pressing q decreases currentTomeIndex, if the index is the first tome it will warp to the last index
+    //pressing q decreases tomeIndex, if the index is the first tome it will warp to the last index
     if(Input.GetKeyDown("q")) {
-      if(indexMap.Count > 0) {
-  		  if(currentTomeIndex == 0) {
-  			  currentTomeIndex = indexMap.Count - 1;
+      if(inventory.Count > 0) {
+  		  if(tomeIndex == 0) {
+  			  tomeIndex = inventory.Count - 1;
   		  }
   		  else {
-  			  currentTomeIndex -= 1;
+  			  tomeIndex -= 1;
   		  }
       }
 	  }
-    //pressing e increases currentTomeIndex, if the index is the last tome it will warp to the first index
+    //pressing e increases tomeIndex, if the index is the last tome it will warp to the first index
 	  if(Input.GetKeyDown("e")) {
-		  if(indexMap.Count > 0) {
-  		  if(currentTomeIndex == indexMap.Count - 1) {
-  			  currentTomeIndex = 0;
+		  if(inventory.Count > 0) {
+  		  if(tomeIndex == inventory.Count - 1) {
+  			  tomeIndex = 0;
   		  }
   		  else {
-          currentTomeIndex += 1;
+          tomeIndex += 1;
   		  }
       }
 	  }
@@ -64,16 +67,14 @@ public class TomeManager : MonoBehaviour {
      Debug.Log("Used Tome!");
    }
 
-	  Debug.Log(currentTomeIndex);
+	  Debug.Log(tomeIndex);
   }
 
-  void AddTome(string newTome) {
-    inventory.Add(newTome, true);
-    inventory[currentTomeName] = false;
-    currentTomeName = newTome;
+  void AddTome(Tome newTome) {
+    inventory.Add(newTome);
+    //currentTomeName = newTome;
 	  /* then set currentTomeName (inventory[index] to false)*/
   }
-
   /* We need something for selection */
 	/* Here we will keep track of all the tomes the player has */
 }

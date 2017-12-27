@@ -51,8 +51,10 @@ public class CollisionDetector : MonoBehaviour
 			Origin += new Vector3 (DistanceBetweenRays, 0, 0);
 		}
 		return false;
+	}
+	/* */
+	void OnTriggerEnter2D(Collider2D other) {
 
 	}
-
 
 }

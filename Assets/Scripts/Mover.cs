@@ -1,8 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*
+This script is attached to player.
+It handles the following
+Movement,
+Jumping,
+Air velocity,
+Checking for platforms,
+Checking for walls.
+*/
 
 public class Mover : MonoBehaviour {
+
     public float speed;
     public float maxSpeed;
     public float jumpHeight;
@@ -80,7 +90,7 @@ public class Mover : MonoBehaviour {
         Ray rae = new Ray(transform.position, Vector3.down * collDist);
         //Draw ray on screen to see visually. Remember visual length is not actual length.
         Debug.DrawRay(transform.position, Vector3.down * collDist, Color.yellow);
-        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f))   // put an && that checks that your position is above the platform to fix snapping from below
+        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y*0.5f)&&hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
         {
             print("Collided With " + hitInfo.collider.gameObject.name);
             // Negate the Directionfactor to reverse the moving direction of colliding cube(here cube2)

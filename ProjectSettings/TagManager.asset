@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Wall
   - Flame
+  - FireTome
+  - Tome
   layers:
   - Default
   - TransparentFX
