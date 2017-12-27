@@ -9,6 +9,7 @@ TagManager:
   - Flame
   - FireTome
   - Tome
+  - Enemy
   layers:
   - Default
   - TransparentFX
