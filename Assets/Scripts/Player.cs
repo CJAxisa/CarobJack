@@ -18,15 +18,24 @@ public class Player : MonoBehaviour {
 	void Update () {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         checkForEnemies();
+        if (health <= 0)
+        {
+            die();
+        }
 	}
 
+    public void die()
+    {
+        Destroy(gameObject);
+    }
     private void loseHealth(int numHealth) {
         health -= numHealth;
     }
 
-    private void hit()
+    public void getHit()
     {
         Debug.Log("HYUCK");
+        loseHealth(1);
     }
 
     private void checkForEnemies()
