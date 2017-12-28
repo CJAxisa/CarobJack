@@ -21,6 +21,8 @@ public class Mover : MonoBehaviour {
     public bool isGrounded;
     public int numJumps;
 
+    public Vector3 knockbackFactor;
+
     RaycastHit hitInfo;
     bool speedBoost;
     public static Vector3 velocity; // NEW: needs to be static so i can modify y velocity in float tome class
@@ -32,8 +34,9 @@ public class Mover : MonoBehaviour {
     // Values should be set in the inspector
     void Start () {
         jumpsLeft = numJumps;
-				isFloating = false;
-				facingRight = true; // NEW: player will start facing right
+		isFloating = false;
+		facingRight = true; // NEW: player will start facing right
+        knockbackFactor = Vector3.zero;
 	}
 
 	// Gets horizontal input, check
@@ -46,19 +49,20 @@ public class Mover : MonoBehaviour {
         Vector3 newPos = new Vector3(transform.position.x + movement * speed, transform.position.y, 0f);
         transform.position = newPos;
         Jump();
-				/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
-				if(Input.GetKeyDown("a") && facingLeft == false) {
-					transform.Rotate(Vector3.up * 180);
-					facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
-					facingRight = false;
-					// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
-				}
-				if(Input.GetKeyDown("d") && facingRight == false) {
-					transform.Rotate(Vector3.up * 180);
-					facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
-					facingLeft = false;
-					// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
-				}
+        knockback();
+		/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
+		if(Input.GetKeyDown("a") && facingLeft == false) {
+			transform.Rotate(Vector3.up * 180);
+			facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
+			facingRight = false;
+			// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
+		}
+		if(Input.GetKeyDown("d") && facingRight == false) {
+			transform.Rotate(Vector3.up * 180);
+			facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
+			facingLeft = false;
+			// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
+		}
 	}
 
     void Jump()
@@ -80,10 +84,9 @@ public class Mover : MonoBehaviour {
         }
         else
         {
-						// NEW: This little if statement is needed for the float tome to work
-						if(!isFloating) {
-            	velocity.y -= gravity;
-						}
+			// NEW: This little if statement is needed for the float tome to work
+			if(!isFloating)
+                velocity.y -= gravity;			
         }
 
 
@@ -91,6 +94,12 @@ public class Mover : MonoBehaviour {
             velocity *= maxSpeed / velocity.magnitude;
 
         transform.position += velocity*Time.deltaTime;
+    }
+
+    public void knockback()
+    {
+        transform.Translate(knockbackFactor);
+        knockbackFactor *= 0.95f;
     }
 
     public void checkForPlatform()
