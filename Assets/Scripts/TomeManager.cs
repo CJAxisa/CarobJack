@@ -36,6 +36,7 @@ public class TomeManager : MonoBehaviour {
 
 		AddTome(gameObject.GetComponent<FireTome>());
 		AddTome(gameObject.GetComponent<StunTome>());
+		AddTome(gameObject.GetComponent<FloatTome>());
 
 		current = gameObject.GetComponent<FireTome>(); // <--- THIS IS HOW YOU CHANGE THE TOME OBJECT TYPE
 		inUse = false;

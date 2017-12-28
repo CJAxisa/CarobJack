@@ -16,20 +16,24 @@ public class Mover : MonoBehaviour {
     public float speed;
     public float maxSpeed;
     public float jumpHeight;
-    public float gravity;    
+    public float gravity;
     public GameObject[] platforms;
     public bool isGrounded;
     public int numJumps;
 
     RaycastHit hitInfo;
     bool speedBoost;
-    Vector3 velocity;
+    public static Vector3 velocity; // NEW: needs to be static so i can modify y velocity in float tome class
+		public static bool isFloating;  // NEW: needs to be static so i can modify in float tome class - also necessary so you don't apply gravity while floating
+		private bool facingRight; // NEW: needed to change direction player is facing
+		private bool facingLeft; // NEW: neede to change direction player is facing
     int jumpsLeft;
 
     // Values should be set in the inspector
     void Start () {
         jumpsLeft = numJumps;
-
+				isFloating = false;
+				facingRight = true; // NEW: player will start facing right
 	}
 
 	// Gets horizontal input, check
@@ -42,6 +46,19 @@ public class Mover : MonoBehaviour {
         Vector3 newPos = new Vector3(transform.position.x + movement * speed, transform.position.y, 0f);
         transform.position = newPos;
         Jump();
+				/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
+				if(Input.GetKeyDown("a") && facingLeft == false) {
+					transform.Rotate(Vector3.up * 180);
+					facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
+					facingRight = false;
+					// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
+				}
+				if(Input.GetKeyDown("d") && facingRight == false) {
+					transform.Rotate(Vector3.up * 180);
+					facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
+					facingLeft = false;
+					// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
+				}
 	}
 
     void Jump()
@@ -53,7 +70,7 @@ public class Mover : MonoBehaviour {
         {
             jumpsLeft--;
             isGrounded = false;
-            velocity.y = jumpHeight;            
+            velocity.y = jumpHeight;
         }
 
         if (isGrounded)
@@ -63,9 +80,12 @@ public class Mover : MonoBehaviour {
         }
         else
         {
-            velocity.y -= gravity;
+						// NEW: This little if statement is needed for the float tome to work
+						if(!isFloating) {
+            	velocity.y -= gravity;
+						}
         }
-        
+
 
         if(velocity.magnitude>maxSpeed)
             velocity *= maxSpeed / velocity.magnitude;
@@ -86,12 +106,12 @@ public class Mover : MonoBehaviour {
                 isPlatform = true;
             }
         }*/
-        
+
         Ray rae = new Ray(transform.position, Vector3.down);
 
 
         Debug.DrawLine(rae.origin, rae.origin + rae.direction * gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f);
-        
+
         if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f) && hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
         {
             //Debug.Log("iagsdkug");
@@ -109,8 +129,8 @@ public class Mover : MonoBehaviour {
         {
             isGrounded = false;
         }
-        
-        
+
+
     }
 
 
