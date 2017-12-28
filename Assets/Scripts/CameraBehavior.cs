@@ -16,6 +16,10 @@ public class CameraBehavior : MonoBehaviour {
     private int screenWidth;
     private int screenHeight;
 
+    private Vector3 velocity;
+
+    public float maxSpeed;
+
     // Use this for initialization
     void Start () {
         mainCamera = gameObject.GetComponent<Camera>();
@@ -33,26 +37,35 @@ public class CameraBehavior : MonoBehaviour {
 
         Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(player.transform.position);
         Vector3 newPos = transform.position;
+        if (velocity == Vector3.zero)
+        {
+            if (playerScreenPos.x > screenWidth * 0.6)
+            {
+                //newPos.x += playerScreenPos
+            }
+            else if (playerScreenPos.x < screenWidth * 0.2)
+            {
+                newPos.x -= 0.5f;
+            }
 
-        if (playerScreenPos.x > screenWidth*0.6)
-        {
-            newPos.x += 0.25f;
-        }
-        else if(playerScreenPos.x < screenWidth * 0.2)
-        {
-            newPos.x -= 0.25f;
+            if (playerScreenPos.y > screenHeight * 0.6)
+            {
+                newPos.y += 0.5f;
+            }
+            else if (playerScreenPos.y < screenHeight * 0.4)
+            {
+                newPos.y -= 0.5f;
+            }
+            velocity = newPos - transform.position;
+
         }
 
-        if (playerScreenPos.y > screenHeight * 0.6)
+        if (velocity !=Vector3.zero)
         {
-            newPos.y += 0.1f;
+            velocity *= maxSpeed / velocity.magnitude;        
+            transform.Translate(velocity);
+            velocity = Vector3.zero;
         }
-        else if (playerScreenPos.y < screenHeight * 0.4)
-        {
-            newPos.y -= 0.1f;
-        }
-
-        transform.position = newPos;
 
     }
 }
