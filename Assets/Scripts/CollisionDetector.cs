@@ -6,7 +6,7 @@ public class CollisionDetector : MonoBehaviour
 	public float MovingForce;
 	Collider2D col;
 
-    public float LengthOfRay;
+    private float LengthOfRay;
     int i;
 	RaycastHit HitInfo;
 	float  DirectionFactor;
@@ -17,6 +17,7 @@ public class CollisionDetector : MonoBehaviour
 	{
 		//Length of the Ray is distance from center to edge
 		//LengthOfRay = (GetComponent<Collider2D>().bounds.max.x/((GetComponent<Collider2D>().bounds.max.x)*10))/2;
+		LengthOfRay = GetComponent<Collider2D>().bounds.extents.x;
 		//print("Length of ray = " + LengthOfRay + " (the smaller the ray, the closer our enemy will collide with the wall)");
 		//Initialize DirectionFactor for right direction
 		DirectionFactor = Mathf.Sign (Vector3.right.z);
@@ -35,7 +36,7 @@ public class CollisionDetector : MonoBehaviour
 	{
 			// Ray to be casted.
 			/* original ray origin via Nick below */
-			Vector3 origin = new Vector3(col.bounds.min.x + margin, (col.bounds.min.y + col.bounds.max.y) * 0.5f, transform.position.z);
+			Vector3 origin = new Vector3((col.bounds.min.x + col.bounds.max.x) * 0.5f, (col.bounds.min.y + col.bounds.max.y) * 0.5f, transform.position.z);
 			ray = new Ray (origin, Vector3.right * DirectionFactor);
 			/* original ray origin via Nick above */
 
