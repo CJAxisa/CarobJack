@@ -16,6 +16,6 @@ public class Enemy : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("hyuidshfhsd");
+        collision.gameObject.GetComponent<Player>().getHit();
     }
 }
