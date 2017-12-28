@@ -12,6 +12,7 @@ public class CollisionDetector : MonoBehaviour
 	float  DirectionFactor;
 	float margin = 0.015f;
 	Ray ray;
+	public static bool isStunned;
 
 	void Start ()
 	{
@@ -22,12 +23,13 @@ public class CollisionDetector : MonoBehaviour
 		//Initialize DirectionFactor for right direction
 		DirectionFactor = Mathf.Sign (Vector3.right.z);
 		col = GetComponent<Collider2D>();
+		isStunned = false;
 	}
 
 	void Update ()
 	{
 		//Debug.Log("half of the boundary is at y = " + (col.bounds.max.y + col.bounds.min.y)*0.5f);
-		if (!IsCollidingHorizontally ()) {
+		if (!IsCollidingHorizontally () && !isStunned) {
 			transform.Translate (Vector3.right * MovingForce * Time.deltaTime * DirectionFactor);
 		}
 	}
