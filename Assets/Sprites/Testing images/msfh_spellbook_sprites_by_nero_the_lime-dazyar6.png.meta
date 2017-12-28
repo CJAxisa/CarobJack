@@ -1,11 +1,19 @@
 fileFormatVersion: 2
 guid: df5ceb7127fdaf24e8f8b488e423bea1
-timeCreated: 1514318415
+timeCreated: 1514408283
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Fire Test
     21300002: Jump Test
+    21300004: This is a tome which one i dont fucking know stop asking qeustions
+    21300006: Test Sprite 69
+    21300008: Test Tomme
+    21300010: Twest Tome
+    21300012: Test tome number
+    21300014: Test Tome Tome Test
+    21300016: Testing Tome
+    21300018: Tome of Testing
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -76,11 +84,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 923
-        y: 2
+        y: 1
         width: 227
         height: 237
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -92,6 +100,110 @@ TextureImporter:
         y: 3
         width: 231
         height: 237
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: This is a tome which one i dont fucking know stop asking qeustions
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 239
+        width: 230
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Test Sprite 69
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 242
+        width: 227
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Test Tomme
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 4
+        width: 231
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Twest Tome
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 239
+        width: 229
+        height: 239
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Test tome number
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 3
+        width: 232
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Test Tome Tome Test
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 228
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Testing Tome
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 240
+        width: 232
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Tome of Testing
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 240
+        width: 231
+        height: 240
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
