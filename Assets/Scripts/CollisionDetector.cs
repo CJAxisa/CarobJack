@@ -29,22 +29,23 @@ public class CollisionDetector : MonoBehaviour
 	void Update ()
 	{
 		//Debug.Log("half of the boundary is at y = " + (col.bounds.max.y + col.bounds.min.y)*0.5f);
-		if (!IsCollidingHorizontally () && !isStunned) {
+		//if (!IsCollidingHorizontally () && !isStunned) {
+		if(!isStunned) {
 			transform.Translate (Vector3.right * MovingForce * Time.deltaTime * DirectionFactor);
 		}
 	}
-
+/*
 	bool IsCollidingHorizontally ()
 	{
 			// Ray to be casted.
-			/* original ray origin via Nick below */
+			// original ray origin via Nick below
 			Vector3 origin = new Vector3((col.bounds.min.x + col.bounds.max.x) * 0.5f, (col.bounds.min.y + col.bounds.max.y) * 0.5f, transform.position.z);
 			ray = new Ray (origin, Vector3.right * DirectionFactor);
-			/* original ray origin via Nick above */
+			// original ray origin via Nick above
 
-			/* CJ's way of casting the ray below*/
+			// CJ's way of casting the ray below
 			//CJ: ray = new Ray (transform.position, Vector3.right * DirectionFactor);
-			/* CJ's way of casting the ray above*/
+			// CJ's way of casting the ray above
 
 			//Draw ray in scene view to see visually. Remember visual length is not actual length
 			//CJ: Debug.DrawLine(origin,transform.position+Vector3.right * LengthOfRay, Color.yellow);
@@ -59,9 +60,12 @@ public class CollisionDetector : MonoBehaviour
 
 		return false;
 	}
-	/* */
+*/
 	void OnTriggerEnter2D(Collider2D other) {
-
+		Debug.Log("Collided with a trigger");
+		if(other.CompareTag("Platform")) {
+			DirectionFactor = -DirectionFactor;
+			Debug.Log("Collided with platform");
+		}
 	}
-
 }

@@ -8,15 +8,17 @@ namespace Tomes {
 		private float timer;
 		public float delay; // You can set how long you are allowed to float here -> -1 = infinite float
 		private bool activateFloat;
+		private bool canFloat;
 
 		void Start() {
 			timer = 0.0f;
 			delay = 1.0f;
 			activateFloat = false;
+			canFloat = true;
 		}
 
 		void Update() {
-			if(activateFloat) {
+			if(activateFloat && timer < delay) {
 				/* Activate float */
 				Mover.velocity.y = 0f; // here we are actually changing the characters vertical velocity to zero to simulate floating
 				Mover.isFloating = true; // necessary so that the Mover class will not apply gravity to the player when he is not grounded
@@ -27,9 +29,12 @@ namespace Tomes {
 				if(timer > delay || !activateFloat) {
 					activateFloat = false;
 					Mover.isFloating = false;
-					timer = 0f;
-					Debug.Log("You stopped floating");
+					//timer = 0f;
+					//Debug.Log("You stopped floating");
 				}
+			}
+			if(Mover.isGrounded) {
+				timer = 0f;
 			}
 		}
 
