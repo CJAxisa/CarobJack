@@ -143,9 +143,6 @@ public class Mover : MonoBehaviour {
                     transform.position = newPos;
                 }
             }
-            
-            
-
         }
         else
         {
@@ -176,16 +173,32 @@ public class Mover : MonoBehaviour {
             rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.extents.y - 0.01f;
             rae = new Ray(rayPos, Vector3.left);
         }
-        
-        if (Physics.Raycast(rae, out hitInfo, 0.3f) && hitInfo.collider.gameObject.CompareTag("Platform")) 
+
+        if (Physics.Raycast(rae, out hitInfo, 0.3f) && hitInfo.collider.gameObject.CompareTag("Platform"))
         {
             Vector3 newPos;
             if (facingRight)
-                newPos = new Vector3(hitInfo.transform.position.x - hitInfo.collider.bounds.extents.x - gameObject.GetComponent<Collider2D>().bounds.extents.x-0.0000001f, transform.position.y, 0f);
+                newPos = new Vector3(hitInfo.transform.position.x - hitInfo.collider.bounds.extents.x - gameObject.GetComponent<Collider2D>().bounds.extents.x - 0.0000001f, transform.position.y, 0f);
             else
-                newPos = new Vector3(hitInfo.transform.position.x + hitInfo.collider.bounds.extents.x + gameObject.GetComponent<Collider2D>().bounds.extents.x+0.0000001f, transform.position.y, 0f);
-            transform.position = newPos;            
+                newPos = new Vector3(hitInfo.transform.position.x + hitInfo.collider.bounds.extents.x + gameObject.GetComponent<Collider2D>().bounds.extents.x + 0.0000001f, transform.position.y, 0f);
+            transform.position = newPos;
         }
+
+
+        rayPos.y += gameObject.GetComponent<Collider2D>().bounds.size.y;
+        rae.origin = rayPos;
+        if (Physics.Raycast(rae, out hitInfo, 0.3f) && hitInfo.collider.gameObject.CompareTag("Platform"))
+        {
+            Vector3 newPos;
+            if (facingRight)
+                newPos = new Vector3(hitInfo.transform.position.x - hitInfo.collider.bounds.extents.x - gameObject.GetComponent<Collider2D>().bounds.extents.x - 0.0000001f, transform.position.y, 0f);
+            else
+                newPos = new Vector3(hitInfo.transform.position.x + hitInfo.collider.bounds.extents.x + gameObject.GetComponent<Collider2D>().bounds.extents.x + 0.0000001f, transform.position.y, 0f);
+            transform.position = newPos;
+        }
+
+        rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.size.y;
+        rae.origin = rayPos;
         if (Physics.Raycast(rae, out hitInfo, 0.4f) && hitInfo.collider.gameObject.CompareTag("Platform"))
             return true;
         else
