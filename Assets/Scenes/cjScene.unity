@@ -639,6 +639,8 @@ MonoBehaviour:
   isGrounded: 0
   numJumps: 200
   knockbackFactor: {x: 0, y: 0, z: 0}
+  facingRight: 0
+  facingLeft: 0
 --- !u!61 &716933691
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -728,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcce8be5b75b9414b84a51877e97b2af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 10
 --- !u!50 &716933695
 Rigidbody2D:
   serializedVersion: 4

@@ -35,8 +35,10 @@ public class Player : MonoBehaviour {
     private void knockBack()
     {
         Debug.Log("we out here");
-
-        gameObject.GetComponent<Mover>().knockbackFactor = new Vector3(-0.5f, 0.2f, 0f);
+        if(gameObject.GetComponent<Mover>().facingRight)
+            gameObject.GetComponent<Mover>().knockbackFactor = new Vector3(-0.5f, 0.2f, 0f);
+        else
+            gameObject.GetComponent<Mover>().knockbackFactor = new Vector3(0.5f, 0.2f, 0f);
         gameObject.GetComponent<Mover>().knockback();
     }
 

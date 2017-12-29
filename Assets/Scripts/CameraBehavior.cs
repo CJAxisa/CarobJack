@@ -54,7 +54,7 @@ public class CameraBehavior : MonoBehaviour {
             velocity.x = movement * speed;
 
         }
-        else if (playerScreenPos.x < screenWidth * 0.2)
+        else if (playerScreenPos.x < screenWidth * 0.35)
         {
             //velocity.x += (float)(screenWidth * 0.2) -playerScreenPos.x;
             float movement = -Mathf.Abs(Input.GetAxis("Horizontal"));

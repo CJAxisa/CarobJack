@@ -27,8 +27,8 @@ public class Mover : MonoBehaviour {
     bool speedBoost;
     public static Vector3 velocity; // NEW: needs to be static so i can modify y velocity in float tome class
 	public static bool isFloating;  // NEW: needs to be static so i can modify in float tome class - also necessary so you don't apply gravity while floating
-	private bool facingRight; // NEW: needed to change direction player is facing
-	private bool facingLeft; // NEW: neede to change direction player is facing
+	public bool facingRight; // NEW: needed to change direction player is facing
+	public bool facingLeft; // NEW: neede to change direction player is facing
     int jumpsLeft;
 
     // Values should be set in the inspector
