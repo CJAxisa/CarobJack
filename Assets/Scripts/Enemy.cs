@@ -43,10 +43,14 @@ public class Enemy : MonoBehaviour {
 					//yield return new WaitForSeconds(5);
 					//CollisionDetector.isStunned = false;
 				}
-				else {
-					/* Idea: We could add a timer so that the enemy is stunned for a short period after coming into contact with stun beam */
-					CollisionDetector.isStunned = false;
-				}
+                else
+                {
+                    /* Idea: We could add a timer so that the enemy is stunned for a short period after coming into contact with stun beam */
+                    CollisionDetector.isStunned = false;
+                }
+                if (collision.CompareTag("Player"))
+                    collision.gameObject.GetComponent<Player>().getHit();
+               
 
     }
 }

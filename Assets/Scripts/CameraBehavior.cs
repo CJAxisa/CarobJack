@@ -18,54 +18,60 @@ public class CameraBehavior : MonoBehaviour {
 
     private Vector3 velocity;
 
-    public float maxSpeed;
+    private float maxSpeed;
+    private float speed;
+    private float gravity;
 
     // Use this for initialization
     void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         mainCamera = gameObject.GetComponent<Camera>();
+
         screenWidth = mainCamera.pixelWidth;
         screenHeight = mainCamera.pixelHeight;
+
+        speed = player.GetComponent<Mover>().speed;
+        maxSpeed = player.GetComponent<Mover>().maxSpeed;
+        gravity = player.GetComponent<Mover>().gravity;
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
             //This means the player is dead and we should cut to the game over scene
         }
-
         Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(player.transform.position);
-        Vector3 newPos = transform.position;
-        if (velocity == Vector3.zero)
-        {
-            if (playerScreenPos.x > screenWidth * 0.6)
-            {
-                //newPos.x += playerScreenPos
-            }
-            else if (playerScreenPos.x < screenWidth * 0.2)
-            {
-                newPos.x -= 0.5f;
-            }
+        velocity = Vector3.zero; 
 
-            if (playerScreenPos.y > screenHeight * 0.6)
-            {
-                newPos.y += 0.5f;
-            }
-            else if (playerScreenPos.y < screenHeight * 0.4)
-            {
-                newPos.y -= 0.5f;
-            }
-            velocity = newPos - transform.position;
+        if (playerScreenPos.x > screenWidth * 0.6)
+        {
+            //transform.parent=player.transform;
+            float movement = Mathf.Abs(Input.GetAxis("Horizontal"));
+            velocity.x = movement * speed;
 
         }
-
-        if (velocity !=Vector3.zero)
+        else if (playerScreenPos.x < screenWidth * 0.2)
         {
-            velocity *= maxSpeed / velocity.magnitude;        
-            transform.Translate(velocity);
-            velocity = Vector3.zero;
+            //velocity.x += (float)(screenWidth * 0.2) -playerScreenPos.x;
+            float movement = -Mathf.Abs(Input.GetAxis("Horizontal"));
+            velocity.x = movement * speed;
         }
+
+        if (playerScreenPos.y > screenHeight * 0.6)
+        {
+            //transform.parent=player.transform;
+            velocity.y = 0.1f;
+
+        }
+        else if (playerScreenPos.y < screenHeight * 0.4)
+        {
+            velocity.y = -maxSpeed*Time.deltaTime;
+        }
+        transform.Translate(velocity);
 
     }
 }

@@ -52,13 +52,14 @@ public class Mover : MonoBehaviour {
         knockback();
 		/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
 		if(Input.GetKeyDown("a") && facingLeft == false) {
-			transform.Rotate(Vector3.up * 180);
-			facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
 			facingRight = false;
 			// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
 		}
 		if(Input.GetKeyDown("d") && facingRight == false) {
-			transform.Rotate(Vector3.up * 180);
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+			//transform.Rotate(Vector3.up * 180);
 			facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
 			facingLeft = false;
 			// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
@@ -116,22 +117,30 @@ public class Mover : MonoBehaviour {
             }
         }*/
 
-        Ray rae = new Ray(transform.position, Vector3.down);
+        Vector3 rayPos = transform.position;
+        rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.extents.y;
+        rayPos.y += 0.2f;
+        Ray rae = new Ray(rayPos, Vector3.down);
+        
 
 
         Debug.DrawLine(rae.origin, rae.origin + rae.direction * gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f);
 
-        if (Physics.Raycast(rae, out hitInfo, gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f) && hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
+        if (Physics.Raycast(rae, out hitInfo, 0.2f) && hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
         {
-            //Debug.Log("iagsdkug");
-            if (!isGrounded)
+            if(transform.position.y-gameObject.GetComponent<Collider2D>().bounds.extents.y*0.8f > hitInfo.transform.position.y)
             {
+                if (!isGrounded)
+                {
 
-                //print("Collided With " + hitInfo.collider.gameObject.name);
-                Vector3 newPos = new Vector3(transform.position.x, hitInfo.transform.position.y + hitInfo.collider.bounds.size.y * 0.5f + gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f + 0.002f, 0f);
-                isGrounded = true;
-                transform.position = newPos;
+                    //print("Collided With " + hitInfo.collider.gameObject.name);
+                    Vector3 newPos = new Vector3(transform.position.x, hitInfo.transform.position.y + hitInfo.collider.bounds.size.y * 0.5f + gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f + 0.002f, 0f);
+                    isGrounded = true;
+                    transform.position = newPos;
+                }
             }
+            
+            
 
         }
         else
