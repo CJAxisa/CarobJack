@@ -141,13 +141,50 @@ public class Mover : MonoBehaviour {
                     Vector3 newPos = new Vector3(transform.position.x, hitInfo.transform.position.y + hitInfo.collider.bounds.size.y * 0.5f + gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f + 0.002f, 0f);
                     isGrounded = true;
                     transform.position = newPos;
+                    return;
                 }
             }
         }
-        else
+        
+        rayPos.x += gameObject.GetComponent<Collider2D>().bounds.extents.x;
+        rae.origin = rayPos;
+
+        if (Physics.Raycast(rae, out hitInfo, 0.2f) && hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
         {
-            isGrounded = false;
+            if (transform.position.y - gameObject.GetComponent<Collider2D>().bounds.extents.y * 0.8f > hitInfo.transform.position.y)
+            {
+                if (!isGrounded)
+                {
+
+                    //print("Collided With " + hitInfo.collider.gameObject.name);
+                    Vector3 newPos = new Vector3(transform.position.x, hitInfo.transform.position.y + hitInfo.collider.bounds.size.y * 0.5f + gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f + 0.002f, 0f);
+                    isGrounded = true;
+                    transform.position = newPos;
+                    return;
+                }
+            }
         }
+
+        rayPos.x -= gameObject.GetComponent<Collider2D>().bounds.size.x;
+        rae.origin = rayPos;
+
+        if (Physics.Raycast(rae, out hitInfo, 0.2f) && hitInfo.collider.gameObject.CompareTag("Platform"))   // put an && that checks that your position is above the platform to fix snapping from below
+        {
+            if (transform.position.y - gameObject.GetComponent<Collider2D>().bounds.extents.y * 0.8f > hitInfo.transform.position.y)
+            {
+                if (!isGrounded)
+                {
+
+                    //print("Collided With " + hitInfo.collider.gameObject.name);
+                    Vector3 newPos = new Vector3(transform.position.x, hitInfo.transform.position.y + hitInfo.collider.bounds.size.y * 0.5f + gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f + 0.002f, 0f);
+                    isGrounded = true;
+                    transform.position = newPos;
+                    return;
+                }
+            }
+        }
+
+        isGrounded = false;
 
 
     }
