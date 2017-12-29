@@ -6,6 +6,10 @@ using Tomes;
 /** This is the "inventory"
  *	This script will be attatched to the player object
  *	This script handles tome selection using a list
+ *
+ ** Name conventions for a tome in UNITY:
+ *	 - No spaces
+ *   - Pascal Case!!!! (i.e. => FireTome)
  */
 public class TomeManager : MonoBehaviour {
   private List<Tome> inventory;
@@ -34,11 +38,11 @@ public class TomeManager : MonoBehaviour {
     inventory = new List<Tome>();
     tomeIndex = 0;
 
-		AddTome(gameObject.GetComponent<FireTome>());
-		AddTome(gameObject.GetComponent<StunTome>());
-		AddTome(gameObject.GetComponent<FloatTome>());
+		//AddTome(gameObject.GetComponent<FireTome>());
+		//AddTome(gameObject.GetComponent<StunTome>());
+		//AddTome(gameObject.GetComponent<FloatTome>());
 
-		current = gameObject.GetComponent<FireTome>(); // <--- THIS IS HOW YOU CHANGE THE TOME OBJECT TYPE
+		/* current = gameObject.GetComponent<FireTome>(); *///<--- THIS IS HOW YOU CHANGE THE TOME OBJECT TYPE
 		inUse = false;
   }
 
@@ -93,20 +97,111 @@ public class TomeManager : MonoBehaviour {
      } */
 
 	   /* To use tomes */
-	   if(Input.GetMouseButtonDown(0)) {
-		   current.use(true);
-	   }
-	   if(Input.GetMouseButtonUp(0)) {
-		   current.use(false);
-	   }
-
+		 if(inventory.Count > 0) {
+	     if(Input.GetMouseButtonDown(0)) {
+		     current.use(true);
+	     }
+	     if(Input.GetMouseButtonUp(0)) {
+		     current.use(false);
+			 }
+		 }
+		 else {
+			 Debug.Log("You do not have any Tomes yet!");
+		 }
 	    //Debug.Log(tomeIndex);
   }
 
   void AddTome(Tome newTome) {
+		if(inventory.Count > 0) {
+			current.use(false);
+		}
     inventory.Add(newTome);
-    //current = newTome; <----- This makes your new tome the newly acquired tome
+    current = newTome; //<----- This makes your new tome the newly acquired tome
+		tomeIndex = inventory.Count - 1;
   }
+
+	void OnTriggerEnter2D(Collider2D other) {
+		// This first check is here so that way I can just destroy the other.gameObject with one line of code at the bottom of this block o code
+		if(other.CompareTag("Tome")) {
+			/* We have collided with a tome object so lets add the tome based on the game objects name */
+			Debug.Log("Collided with the: " + other.name);
+			if(other.name == "FireTome") {
+				AddTome(gameObject.GetComponent<FireTome>());
+			}
+			else if(other.name == "StunTome") {
+				AddTome(gameObject.GetComponent<StunTome>());
+			}
+			else if(other.name == "FloatTome") {
+				AddTome(gameObject.GetComponent<FloatTome>());
+			}
+			/* Combat Tomes:
+			else if(other.name == "LazerTome") {
+				AddTome(gameObject.GetComponent<LazerTome>());
+			}
+			else if(other.name == "PunchTome") {
+				AddTome(gameObject.GetComponent<PunchTome>());
+			}
+			else if(other.name == "IceTome") {
+				AddTome(gameObject.GetComponent<IceTome>());
+			}
+			else if(other.name == "ShieldTome") {
+				AddTome(gameObject.GetComponent<ShieldTome>());
+			}
+			else if(other.name == "SuplexTome") {
+				AddTome(gameObject.GetComponent<SuplexTome>());
+			}
+			else if(other.name == "JumpAttackTome") {
+				AddTome(gameObject.GetComponent<JumpAttackTome>());
+			}
+			***Non-Combat Tomes:
+			else if(other.name == "StealthTome") {
+				AddTome(gameObject.GetComponent<StealthTome>());
+			}
+			else if(other.name == "FlyTome") {
+				AddTome(gameObject.GetComponent<FlyTome>());
+			}
+			else if(other.name == "BargainingTome") {
+				AddTome(gameObject.GetComponent<BargainingTome>());
+			}
+			else if(other.name == "SpeedBoostTome") {
+				AddTome(gameObject.GetComponent<SpeedBoostTome>());
+			}
+			else if(other.name == "IntimidationTome") {
+				AddTome(gameObject.GetComponent<IntimidationTome>());
+			}
+			else if(other.name == "DisguiseTome") {
+				AddTome(gameObject.GetComponent<DisguiseTome>());
+			}
+			else if(other.name == "HealTome") {
+				AddTome(gameObject.GetComponent<HealTome>());
+			}
+			else if(other.name == "GoofyTome") {
+				AddTome(gameObject.GetComponent<GoofyTome>());
+			}
+			else if(other.name == "InvestigationTome") {
+				AddTome(gameObject.GetComponent<InvestigationTome>());
+			}
+			else if(other.name == "TallTome") {
+				AddTome(gameObject.GetComponent<TallTome>());
+			}
+			else if(other.name == "TinyTome") {
+				AddTome(gameObject.GetComponent<TinyTome>());
+			}
+			else if(other.name == "TimeTome") {
+				AddTome(gameObject.GetComponent<TimeTome>());
+			}
+			***Summoning Tomes:
+			else if(other.name == "DeadEnemiesTome") {
+				AddTome(gameObject.GetComponent<DeadEnemiesTome>());
+			}
+			else if(other.name == "GodTome") {
+				AddTome(gameObject.GetComponent<GodTome>());
+			}
+
+			*/
+			Destroy(other.gameObject);
+		}
+	}
   /* We need something for selection */
 	/* Here we will keep track of all the tomes the player has */
 }

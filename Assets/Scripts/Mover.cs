@@ -18,7 +18,7 @@ public class Mover : MonoBehaviour {
     public float jumpHeight;
     public float gravity;
     public GameObject[] platforms;
-    public bool isGrounded;
+    public static bool isGrounded;
     public int numJumps;
 
     public Vector3 knockbackFactor;
@@ -91,7 +91,7 @@ public class Mover : MonoBehaviour {
         {
 			// NEW: This little if statement is needed for the float tome to work
 			if(!isFloating)
-                velocity.y -= gravity;			
+                velocity.y -= gravity;
         }
 
 
@@ -125,7 +125,7 @@ public class Mover : MonoBehaviour {
         rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.extents.y;
         rayPos.y += 0.2f;
         Ray rae = new Ray(rayPos, Vector3.down);
-        
+
 
 
         Debug.DrawLine(rae.origin, rae.origin + rae.direction * gameObject.GetComponent<Collider2D>().bounds.size.y * 0.5f);
@@ -145,7 +145,7 @@ public class Mover : MonoBehaviour {
                 }
             }
         }
-        
+
         rayPos.x += gameObject.GetComponent<Collider2D>().bounds.extents.x;
         rae.origin = rayPos;
 
