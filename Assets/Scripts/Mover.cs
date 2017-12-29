@@ -26,22 +26,26 @@ public class Mover : MonoBehaviour {
     RaycastHit hitInfo;
     bool speedBoost;
     public static Vector3 velocity; // NEW: needs to be static so i can modify y velocity in float tome class
-		public static bool isFloating;  // NEW: needs to be static so i can modify in float tome class - also necessary so you don't apply gravity while floating
-		private bool facingRight; // NEW: needed to change direction player is facing
-		private bool facingLeft; // NEW: neede to change direction player is facing
+	public static bool isFloating;  // NEW: needs to be static so i can modify in float tome class - also necessary so you don't apply gravity while floating
+	private bool facingRight; // NEW: needed to change direction player is facing
+	private bool facingLeft; // NEW: neede to change direction player is facing
     int jumpsLeft;
 
     // Values should be set in the inspector
     void Start () {
         jumpsLeft = numJumps;
 		isFloating = false;
-		facingRight = true; // NEW: player will start facing right
+		facingLeft = true; // NEW: player will start facing right
+        facingRight = false;
         knockbackFactor = Vector3.zero;
 	}
 
 	// Gets horizontal input, check
 	void Update () {
-        float movement = Input.GetAxis("Horizontal");
+        float movement = 0f;
+        if(!wallCheck())
+            movement = Input.GetAxis("Horizontal");
+
         //Debug.Log(movement);
         if (movement != 0)
             checkForPlatform();
@@ -147,6 +151,45 @@ public class Mover : MonoBehaviour {
         {
             isGrounded = false;
         }
+
+
+    }
+
+    bool wallCheck()
+    {
+
+        Vector3 rayPos;
+        Ray rae;
+        if (facingRight)
+        {
+            rayPos = transform.position;
+            rayPos.x += gameObject.GetComponent<Collider2D>().bounds.extents.x;
+            rayPos.x -= 0.3f;
+            rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.extents.y-0.01f;
+            rae = new Ray(rayPos, Vector3.right);
+        }
+        else
+        {
+            rayPos = transform.position;
+            rayPos.x -= gameObject.GetComponent<Collider2D>().bounds.extents.x;
+            rayPos.x += 0.3f;
+            rayPos.y -= gameObject.GetComponent<Collider2D>().bounds.extents.y - 0.01f;
+            rae = new Ray(rayPos, Vector3.left);
+        }
+        
+        if (Physics.Raycast(rae, out hitInfo, 0.3f) && hitInfo.collider.gameObject.CompareTag("Platform")) 
+        {
+            Vector3 newPos;
+            if (facingRight)
+                newPos = new Vector3(hitInfo.transform.position.x - hitInfo.collider.bounds.extents.x - gameObject.GetComponent<Collider2D>().bounds.extents.x-0.0000001f, transform.position.y, 0f);
+            else
+                newPos = new Vector3(hitInfo.transform.position.x + hitInfo.collider.bounds.extents.x + gameObject.GetComponent<Collider2D>().bounds.extents.x+0.0000001f, transform.position.y, 0f);
+            transform.position = newPos;            
+        }
+        if (Physics.Raycast(rae, out hitInfo, 0.4f) && hitInfo.collider.gameObject.CompareTag("Platform"))
+            return true;
+        else
+            return false;
 
 
     }
