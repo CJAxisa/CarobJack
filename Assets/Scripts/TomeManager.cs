@@ -47,8 +47,8 @@ public class TomeManager : MonoBehaviour {
   }
 
   void Update() {
-    /* pressing 'q' decreases tomeIndex, if the index is the first tome it will warp to the last index */
-    if(Input.GetKeyDown("q")) {
+    /* pressing 'q'/MouseWheel-DOWN decreases tomeIndex, if the index is the first tome it will warp to the last index */
+    if(Input.GetKeyDown("q") || Input.GetAxis("Mouse ScrollWheel") < 0) {
       if(inventory.Count > 0) {
 		    current.use(false);
 			  if(tomeIndex == 0) {
@@ -67,8 +67,8 @@ public class TomeManager : MonoBehaviour {
       }
 	  }
 
-		/* pressing 'e' increases tomeIndex, if the index is the last tome it will warp to the first index */
-	  if(Input.GetKeyDown("e")) {
+		/* pressing 'e'/MouseWheel-UP increases tomeIndex, if the index is the last tome it will warp to the first index */
+	  if(Input.GetKeyDown("e") || Input.GetAxis("Mouse ScrollWheel") > 0) {
 		  if(inventory.Count > 0) {
 			  current.use(false);
   		  if(tomeIndex == inventory.Count - 1) {

@@ -18,6 +18,7 @@ public class Mover : MonoBehaviour {
     public float jumpHeight;
     public float gravity;
     public GameObject[] platforms;
+		public Transform rotationPoint;
     public static bool isGrounded;
     public int numJumps;
 
@@ -38,6 +39,7 @@ public class Mover : MonoBehaviour {
 		facingLeft = true; // NEW: player will start facing right
         facingRight = false;
         knockbackFactor = Vector3.zero;
+				rotationPoint = gameObject.transform.GetChild(0);
 	}
 
 	// Gets horizontal input, check
@@ -57,16 +59,18 @@ public class Mover : MonoBehaviour {
 		/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
 		if(Input.GetKeyDown("a") && facingLeft == false) {
             gameObject.GetComponent<SpriteRenderer>().flipX = false;
+						rotationPoint.transform.Rotate(Vector3.up * 180);
             facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
-			facingRight = false;
-			// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
+						facingRight = false;
+						// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
 		}
 		if(Input.GetKeyDown("d") && facingRight == false) {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
-			//transform.Rotate(Vector3.up * 180);
-			facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
-			facingLeft = false;
-			// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
+						rotationPoint.transform.Rotate(Vector3.up * 180);
+						//transform.Rotate(Vector3.up * 180);
+						facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
+						facingLeft = false;
+						// HERE ADD SPRITE FACING LEFT IDLE ANIMATION
 		}
 	}
 
