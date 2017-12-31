@@ -11,6 +11,7 @@ TagManager:
   - Tome
   - Enemy
   - StunBeam
+  - Pause
   layers:
   - Default
   - TransparentFX
