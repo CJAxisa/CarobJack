@@ -7,6 +7,7 @@ namespace Menu {
 	public class UIManager : MonoBehaviour {
 		private GameObject[] pauseObjects;
 		public static bool needsReset;
+		public static bool isPaused;
 
 		// Use this for initialization
 		void Start () {
@@ -26,6 +27,7 @@ namespace Menu {
 		public void togglePause() {
 			// pause
 			if(Time.timeScale == 1) {
+				isPaused = true;
 				needsReset = true;
 				Time.timeScale = 0;
 				foreach(GameObject g in pauseObjects) {
@@ -34,6 +36,7 @@ namespace Menu {
 			}
 			// unpause
 			else if (Time.timeScale == 0) {
+				isPaused = false;
 				Time.timeScale = 1;
 				foreach(GameObject g in pauseObjects) {
 					g.SetActive(false);

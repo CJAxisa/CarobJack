@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Menu;
 /*
 This script is attached to player.
 It handles the following
@@ -44,6 +45,9 @@ public class Mover : MonoBehaviour {
 
 	// Gets horizontal input, check
 	void Update () {
+        if(UIManager.isPaused) {
+          return;
+        }
         float movement = 0f;
         if(!wallCheck())
             movement = Input.GetAxis("Horizontal");
