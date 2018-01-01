@@ -10,20 +10,40 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour {
     public int health;
     private GameObject[] enemies;
+    private GameObject[] lava;
+    public float timer;
+  	public float delay;
+    bool Dot;
 	// Use this for initialization
 	void Start () {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        lava = GameObject.FindGameObjectsWithTag("Lava");
 	}
 
 	// Update is called once per frame
 	void Update () {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        lava = GameObject.FindGameObjectsWithTag("Lava");
         checkForEnemies();
         if (health <= 0)
         {
             die();
             SceneManager.LoadScene(0);
         }
+        if (Dot){
+          if (timer > delay){
+            Dot = false;
+            // timer = 0;
+          }
+          timer += 1.0f * Time.deltaTime * 5;
+          Debug.Log("Timer = " + timer);
+          //TODO: lose health every second
+          if (timer >= delay - 0.5 && timer <= delay){
+            loseHealth(1);
+            timer = 0;
+          }
+        }
+
 	}
 
     public void die()
@@ -79,10 +99,22 @@ public class Player : MonoBehaviour {
     */
     }
 
-    public void OnCollisionEnter(Collision co)
+    public void OnTriggerStay2D(Collider2D co)
     {
-        Debug.Log("AAAAAAAA");
-        if (co.gameObject.CompareTag("Enemy"))
-            loseHealth(1);
+        // Debug.Log("AAAAAAAA");
+        // if (co.gameObject.CompareTag("Enemy")){
+        //     loseHealth(1);
+          // }
+        if (co.gameObject.CompareTag("Lava")){
+            Dot = true;
+            // loseHealth(1);
+            // knockBack();
+        }
     }
+    public void OnTriggerExit2D(Collider2D co){
+      if (co.gameObject.CompareTag("Lava")){
+          Dot = false;
+          timer = 0;
+        }
+      }
 }

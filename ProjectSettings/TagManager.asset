@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - StunBeam
   - Pause
+  - Lava
   layers:
   - Default
   - TransparentFX
