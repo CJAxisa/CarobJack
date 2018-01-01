@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /* This handles the player's health and check for enemy collision
  *  This is attached to the player gameObject
- * 
- * 
+ *
+ *
  */
 public class Player : MonoBehaviour {
     public int health;
@@ -13,7 +14,7 @@ public class Player : MonoBehaviour {
 	void Start () {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour {
         if (health <= 0)
         {
             die();
+            SceneManager.LoadScene(0);
         }
 	}
 
@@ -61,9 +63,9 @@ public class Player : MonoBehaviour {
              * box B's x max is greater than box a's x min
              * box B's y min is less than box a's y max
              * box B's y max is greater than box a's y min
-             * 
+             *
              * if all of these are true, then we have a collision
-             
+
             if (gameObject.GetComponent<Collider2D>().bounds.min.x < enem.GetComponent<Collider2D>().bounds.max.x &&
                 gameObject.GetComponent<Collider2D>().bounds.min.x > enem.GetComponent<Collider2D>().bounds.max.x &&
                 gameObject.GetComponent<Collider2D>().bounds.min.y > enem.GetComponent<Collider2D>().bounds.max.y &&
@@ -80,7 +82,7 @@ public class Player : MonoBehaviour {
     public void OnCollisionEnter(Collision co)
     {
         Debug.Log("AAAAAAAA");
-        if (co.gameObject.CompareTag("Enemy")) 
+        if (co.gameObject.CompareTag("Enemy"))
             loseHealth(1);
     }
 }
