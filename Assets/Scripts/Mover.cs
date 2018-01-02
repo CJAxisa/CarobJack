@@ -62,14 +62,14 @@ public class Mover : MonoBehaviour {
         knockback();
 		/* NEW: Here I added it so that way it flips the players rotation when he is facing left and right */
 		if(Input.GetKeyDown("a") && facingLeft == false) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            //gameObject.GetComponent<SpriteRenderer>().flipX = false;
 						rotationPoint.transform.Rotate(Vector3.up * 180);
             facingLeft = true; // need to set this to true so that way you don't flip the player again when you move to the right
 						facingRight = false;
 						// HERE ADD SPRITE FACING RIGHT IDLE ANIMATION
 		}
 		if(Input.GetKeyDown("d") && facingRight == false) {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            //gameObject.GetComponent<SpriteRenderer>().flipX = true;
 						rotationPoint.transform.Rotate(Vector3.up * 180);
 						//transform.Rotate(Vector3.up * 180);
 						facingRight = true; // need to set this to true so that way you don't flip the player again when you move to the right
