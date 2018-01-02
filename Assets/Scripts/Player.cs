@@ -110,6 +110,9 @@ public class Player : MonoBehaviour {
             // loseHealth(1);
             // knockBack();
         }
+        if (co.gameObject.CompareTag("Victory")){
+          SceneManager.LoadScene(3);
+        }
     }
     public void OnTriggerExit2D(Collider2D co){
       if (co.gameObject.CompareTag("Lava")){
