@@ -10,6 +10,8 @@ namespace Tomes {
 		private bool activateFloat;
 		private bool canFloat;
 
+		public AudioClip shootSound;
+
 		void Start() {
 			timer = 0.0f;
 			delay = 1.0f;

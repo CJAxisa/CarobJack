@@ -15,6 +15,14 @@ public class TomeManager : MonoBehaviour {
   private List<Tome> inventory;
   private int tomeIndex;
 
+	public AudioClip cannotUse;
+	public AudioClip collectedTome;
+	private AudioSource audioSource;
+	private float timer = 0f;
+	private float delay = 1.0f;
+	private bool playSound = true;
+
+
   private Tome current;
 	private bool inUse;
   // keeps track of current item - index
@@ -37,7 +45,7 @@ public class TomeManager : MonoBehaviour {
   void Start() {
     inventory = new List<Tome>();
     tomeIndex = 0;
-
+		audioSource = GetComponent<AudioSource>();
 		//AddTome(gameObject.GetComponent<FireTome>());
 		//AddTome(gameObject.GetComponent<StunTome>());
 		//AddTome(gameObject.GetComponent<FloatTome>());
@@ -106,7 +114,19 @@ public class TomeManager : MonoBehaviour {
 			 }
 		 }
 		 else {
-			 Debug.Log("You do not have any Tomes yet!");
+			 if(Input.GetMouseButtonDown(0)) {
+				 if(playSound) {
+					 playSound = false;
+				 	 audioSource.PlayOneShot(cannotUse, 0.4f);
+				 }
+			 }
+			 if(!playSound) {
+				 timer += 1.0f * Time.deltaTime;
+				 if(timer > delay) {
+					 playSound = true;
+					 timer = 0f;
+				 }
+			 }
 		 }
 	    //Debug.Log(tomeIndex);
   }
@@ -200,6 +220,7 @@ public class TomeManager : MonoBehaviour {
 
 			*/
 			Destroy(other.gameObject);
+			audioSource.PlayOneShot(collectedTome, 0.4f);
 		}
 	}
   /* We need something for selection */
