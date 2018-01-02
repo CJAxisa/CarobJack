@@ -5699,7 +5699,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 731389476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 149.83, y: 14.42, z: 0}
+  m_LocalPosition: {x: 148.2, y: 14.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 215666134}
@@ -6664,7 +6664,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 837205134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 133.54, y: -12.22, z: -0.30974}
+  m_LocalPosition: {x: 135.1, y: -11.6, z: -0.30974}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 215666134}
@@ -15026,6 +15026,7 @@ GameObject:
   - component: {fileID: 1942257144}
   - component: {fileID: 1942257147}
   - component: {fileID: 1942257146}
+  - component: {fileID: 1942257148}
   m_Layer: 0
   m_Name: Gustavo_Rocque
   m_TagString: Player
@@ -15104,7 +15105,7 @@ MonoBehaviour:
   gravity: 0.5
   platforms: []
   rotationPoint: {fileID: 1628667053}
-  numJumps: 20
+  numJumps: 2
   knockbackFactor: {x: 0, y: 0, z: 0}
   facingRight: 0
   facingLeft: 0
@@ -15161,7 +15162,7 @@ MonoBehaviour:
   tomeName: Flaot
   isActive: 1
   delay: 0
-  shootSound: {fileID: 0}
+  floatSound: {fileID: 8300000, guid: 69209c96044b43a40b9e72bc7d6cd20f, type: 3}
 --- !u!114 &1942257145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15173,8 +15174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dda42e1068d3d4eb9234cad13cfd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cannotUse: {fileID: 0}
-  collectedTome: {fileID: 0}
+  cannotUse: {fileID: 8300000, guid: a97f35ffbbc31f14f8458922a668710b, type: 3}
+  collectedTome: {fileID: 8300000, guid: 2d31fc215b9f5e84fa6bf5b34a9f665a, type: 3}
+  switchTome: {fileID: 8300000, guid: 2f5e8d0770e33e04595644eee9d456b3, type: 3}
 --- !u!114 &1942257146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15189,6 +15191,7 @@ MonoBehaviour:
   tomeName: 
   isActive: 0
   stunBeam: []
+  stun: {fileID: 8300000, guid: 09e80e280c04a694cb656aee02f0279c, type: 3}
 --- !u!114 &1942257147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15203,6 +15206,88 @@ MonoBehaviour:
   tomeName: 
   isActive: 0
   flames: []
+  initialFlame: {fileID: 8300000, guid: b62eed95143730243b2c911623d528c3, type: 3}
+  sustainedFlame: {fileID: 8300000, guid: 5dde763d021d2134792f151e84829b50, type: 3}
+--- !u!82 &1942257148
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942257138}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1947148375
 GameObject:
   m_ObjectHideFlags: 0
