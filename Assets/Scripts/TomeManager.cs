@@ -56,9 +56,12 @@ public class TomeManager : MonoBehaviour {
   }
 
   void Update() {
+		if(Menu.UIManager.isPaused) {
+			return;
+		}
     /* pressing 'q'/MouseWheel-DOWN decreases tomeIndex, if the index is the first tome it will warp to the last index */
     if(Input.GetKeyDown("q") || Input.GetAxis("Mouse ScrollWheel") < 0) {
-      if(inventory.Count > 0) {
+      if(inventory.Count > 1) {
 		    current.use(false);
 			  if(tomeIndex == 0) {
   		    tomeIndex = inventory.Count - 1;
