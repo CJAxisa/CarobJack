@@ -10,13 +10,17 @@ namespace Tomes {
 		private bool activateFloat;
 		private bool canFloat;
 
-		public AudioClip shootSound;
+		public AudioClip floatSound;
+		private AudioSource audioSource;
 
 		void Start() {
 			timer = 0.0f;
 			delay = 1.0f;
 			activateFloat = false;
 			canFloat = true;
+
+			audioSource = GetComponent<AudioSource>();
+
 		}
 
 		void Update() {
@@ -34,6 +38,9 @@ namespace Tomes {
 					//timer = 0f;
 					//Debug.Log("You stopped floating");
 				}
+				if(timer > delay) {
+					audioSource.Stop();
+				}
 			}
 			if(Mover.isGrounded) {
 				timer = 0f;
@@ -42,6 +49,15 @@ namespace Tomes {
 
 		public override void use(bool inUse) {
 			activateFloat = inUse; // this will be set to true/false in the TomeManager class (i.e. true if left mouseclick is down, false otherwise)
+		}
+
+		public override void playSound(bool playCan) {
+			if(playCan && activateFloat) {
+				audioSource.PlayOneShot(floatSound, 0.4f);
+			}
+			else if(playCan == false) {
+				audioSource.Stop();
+			}
 		}
 	}
 }

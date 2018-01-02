@@ -10,7 +10,7 @@ namespace Tomes {
 
 		public abstract void use(bool inUse);
 
-		//public abstract void playSound();
+		public abstract void playSound(bool playCan);
 		//public void toggle() {
 		//	isActive = !isActive;
 		//}

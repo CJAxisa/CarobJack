@@ -17,6 +17,7 @@ public class TomeManager : MonoBehaviour {
 
 	public AudioClip cannotUse;
 	public AudioClip collectedTome;
+	public AudioClip switchTome;
 	private AudioSource audioSource;
 	private float timer = 0f;
 	private float delay = 1.0f;
@@ -61,9 +62,11 @@ public class TomeManager : MonoBehaviour {
 		    current.use(false);
 			  if(tomeIndex == 0) {
   		    tomeIndex = inventory.Count - 1;
+					audioSource.PlayOneShot(switchTome, 0.4f);
   		  }
   		  else {
   		    tomeIndex -= 1;
+					audioSource.PlayOneShot(switchTome, 0.4f);
   		  }
 			  current = inventory[tomeIndex];
 			  /* IF YOU WANT IT SO THAT WAY YOU CAN SWAP BETWEEN TOMES AND CONTINUE USING THE TOMES UNCOMMENT THIS BLOCK BELOW */
@@ -77,13 +80,15 @@ public class TomeManager : MonoBehaviour {
 
 		/* pressing 'e'/MouseWheel-UP increases tomeIndex, if the index is the last tome it will warp to the first index */
 	  if(Input.GetKeyDown("e") || Input.GetAxis("Mouse ScrollWheel") > 0) {
-		  if(inventory.Count > 0) {
+		  if(inventory.Count > 1) {
 			  current.use(false);
   		  if(tomeIndex == inventory.Count - 1) {
   				tomeIndex = 0;
+					audioSource.PlayOneShot(switchTome, 0.4f);
   		  }
   		  else {
           tomeIndex += 1;
+					audioSource.PlayOneShot(switchTome, 0.4f);
   		  }
       }
 			current = inventory[tomeIndex];
@@ -108,16 +113,18 @@ public class TomeManager : MonoBehaviour {
 		 if(inventory.Count > 0) {
 	     if(Input.GetMouseButtonDown(0)) {
 		     current.use(true);
+				 current.playSound(true);
 	     }
 	     if(Input.GetMouseButtonUp(0)) {
 		     current.use(false);
+				 current.playSound(false);
 			 }
 		 }
 		 else {
 			 if(Input.GetMouseButtonDown(0)) {
 				 if(playSound) {
-					 playSound = false;
 				 	 audioSource.PlayOneShot(cannotUse, 0.4f);
+					 playSound = false;
 				 }
 			 }
 			 if(!playSound) {

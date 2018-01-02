@@ -8,6 +8,10 @@ namespace Tomes {
 		//bool inUse;
 		bool toggle;
 
+		public AudioClip initialFlame;
+		public AudioClip sustainedFlame;
+		private AudioSource audioSource;
+
 		/*public FireTome() {
 			tomeName = "fire";
 		}*/
@@ -19,6 +23,7 @@ namespace Tomes {
 			flames[1].SetActive(false);
 			flames[2].SetActive(false);
 
+			audioSource = GetComponent<AudioSource>();
 			//inUse = false;
 		}
 
@@ -40,6 +45,10 @@ namespace Tomes {
 			flames[0].SetActive(inUse);
 			flames[1].SetActive(inUse);
 			flames[2].SetActive(inUse);
+		}
+
+		public override void playSound(bool playCan) {
+			;
 		}
 	}
 }
