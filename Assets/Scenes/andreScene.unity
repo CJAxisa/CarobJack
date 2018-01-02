@@ -3878,11 +3878,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 496236537}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.630056, y: 0.62555224, z: -0.030507885}
-  m_LocalScale: {x: 0.29697347, y: 0.29697353, z: 0.29697353}
+  m_LocalPosition: {x: 353.37683, y: -49.549118, z: -0.40625}
+  m_LocalScale: {x: 3.954567, y: 3.9545677, z: 3.9545677}
   m_Children: []
-  m_Father: {fileID: 920269748}
-  m_RootOrder: 0
+  m_Father: {fileID: 556440605}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &503275872
 GameObject:
@@ -4548,8 +4548,9 @@ Transform:
   - {fileID: 1865749717}
   - {fileID: 389044802}
   - {fileID: 514854451}
+  - {fileID: 808495922}
   - {fileID: 1389607390}
-  - {fileID: 920269748}
+  - {fileID: 496236540}
   - {fileID: 1248626754}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -6436,11 +6437,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 808495919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1091712, y: 1.0536014, z: -0.030507885}
-  m_LocalScale: {x: 0.07509633, y: 0.07509633, z: 0.07509633}
+  m_LocalPosition: {x: 342.24683, y: -43.849117, z: -0.40625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1389607390}
-  m_RootOrder: 0
+  m_Father: {fileID: 556440605}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &810534074
 GameObject:
@@ -7831,76 +7832,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15999998, y: 0.15999997, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &920269746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 920269748}
-  - component: {fileID: 920269747}
-  m_Layer: 0
-  m_Name: TLoZ_Old_Man_Sprite (8)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &920269747
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 920269746}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 77f159c20726d3243ac08abf5aabd8f4, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
---- !u!4 &920269748
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 920269746}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 361.7668, y: -57.879116, z: 0}
-  m_LocalScale: {x: 13.31623, y: 13.31623, z: 13.31623}
-  m_Children:
-  - {fileID: 496236540}
-  m_Father: {fileID: 556440605}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927987660
 GameObject:
   m_ObjectHideFlags: 0
@@ -10347,7 +10278,7 @@ Transform:
   m_LocalScale: {x: 13.31623, y: 13.31623, z: 13.31623}
   m_Children: []
   m_Father: {fileID: 556440605}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1261148408
 GameObject:
@@ -11363,9 +11294,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1389607390}
   - component: {fileID: 1389607389}
+  - component: {fileID: 1389607392}
+  - component: {fileID: 1389607391}
   m_Layer: 0
   m_Name: TLoZ_Old_Man_Sprite (7)
-  m_TagString: Untagged
+  m_TagString: Victory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11417,13 +11350,57 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1389607388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 357.0168, y: -57.879116, z: 0}
+  m_LocalPosition: {x: 359.27, y: -57.879116, z: 0}
   m_LocalScale: {x: 13.31623, y: 13.31623, z: 13.31623}
-  m_Children:
-  - {fileID: 808495922}
+  m_Children: []
   m_Father: {fileID: 556440605}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1389607391
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1389607388}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!61 &1389607392
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1389607388}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!1 &1389671651
 GameObject:
   m_ObjectHideFlags: 0
@@ -15127,7 +15104,7 @@ MonoBehaviour:
   gravity: 0.5
   platforms: []
   rotationPoint: {fileID: 1628667053}
-  numJumps: 2
+  numJumps: 20
   knockbackFactor: {x: 0, y: 0, z: 0}
   facingRight: 0
   facingLeft: 0
@@ -15184,6 +15161,7 @@ MonoBehaviour:
   tomeName: Flaot
   isActive: 1
   delay: 0
+  shootSound: {fileID: 0}
 --- !u!114 &1942257145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15195,6 +15173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5dda42e1068d3d4eb9234cad13cfd30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cannotUse: {fileID: 0}
+  collectedTome: {fileID: 0}
 --- !u!114 &1942257146
 MonoBehaviour:
   m_ObjectHideFlags: 0

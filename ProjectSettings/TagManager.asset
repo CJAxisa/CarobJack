@@ -13,6 +13,7 @@ TagManager:
   - StunBeam
   - Pause
   - Lava
+  - Victory
   layers:
   - Default
   - TransparentFX
