@@ -12,7 +12,11 @@ public class CollisionDetector : MonoBehaviour
 	float  DirectionFactor;
 	float margin = 0.015f;
 	Ray ray;
-	public static bool isStunned;
+
+
+	public bool isStunned;
+	public float stunTimer;
+	public float delay;
 
 	void Start ()
 	{
@@ -24,6 +28,7 @@ public class CollisionDetector : MonoBehaviour
 		DirectionFactor = Mathf.Sign (Vector3.right.z);
 		col = GetComponent<Collider2D>();
 		isStunned = false;
+		delay = 2.0f;
 	}
 
 	void Update ()
@@ -32,6 +37,13 @@ public class CollisionDetector : MonoBehaviour
 		//if (!IsCollidingHorizontally () && !isStunned) {
 		if(!isStunned) {
 			transform.Translate (Vector3.right * MovingForce * Time.deltaTime * DirectionFactor);
+		}
+		else {
+			stunTimer += 1.0f * Time.deltaTime;
+		}
+		if(stunTimer > delay) {
+			isStunned = false;
+			stunTimer = 0.0f;
 		}
 	}
 /*
@@ -66,6 +78,14 @@ public class CollisionDetector : MonoBehaviour
 		if(other.CompareTag("Platform")) {
 			DirectionFactor = -DirectionFactor;
 			Debug.Log("Collided with platform");
+		}
+
+		if(other.CompareTag("StunBeam")) {
+				isStunned = true;
+		}
+		else if(stunTimer > delay){
+			/* Idea: We could add a stunTimer so that the enemy is stunned for a short period after coming into contact with stun beam */
+			isStunned = false;
 		}
 	}
 }

@@ -20,13 +20,13 @@ public class Enemy : MonoBehaviour {
 			Debug.Log("DEAD");
 			Destroy(gameObject);
 		}
-		if(CollisionDetector.isStunned) {
-			stunTimer += 1.0f * Time.deltaTime;
-		}
-		if(stunTimer > delay) {
-			CollisionDetector.isStunned = false;
-			stunTimer = 0.0f;
-		}
+		// if(CollisionDetector.isStunned) {
+		// 	stunTimer += 1.0f * Time.deltaTime;
+		// }
+		// if(stunTimer > delay) {
+		// 	CollisionDetector.isStunned = false;
+		// 	stunTimer = 0.0f;
+		// }
 		if(isBurning) {
 			health -= 1 * Time.deltaTime;
 		}
@@ -50,15 +50,15 @@ public class Enemy : MonoBehaviour {
 			*  Tags: "Flame" "StunBeam"
 			*/
 			Debug.Log("Collided with a trigger");
-			if(collision.CompareTag("StunBeam")) {
-				CollisionDetector.isStunned = true;
-				//yield return new WaitForSeconds(5);
-				//CollisionDetector.isStunned = false;
-			}
-      else if(stunTimer > delay){
-        /* Idea: We could add a stunTimer so that the enemy is stunned for a short period after coming into contact with stun beam */
-        CollisionDetector.isStunned = false;
-      }
+			// if(collision.CompareTag("StunBeam")) {
+			// 	//CollisionDetector.isStunned = true;
+			// 	//yield return new WaitForSeconds(5);
+			// 	//CollisionDetector.isStunned = false;
+			// }
+      // else if(stunTimer > delay){
+      //   /* Idea: We could add a stunTimer so that the enemy is stunned for a short period after coming into contact with stun beam */
+      //   CollisionDetector.isStunned = false;
+      // }
       if (collision.CompareTag("Player"))
       	collision.gameObject.GetComponent<Player>().getHit();
   }
