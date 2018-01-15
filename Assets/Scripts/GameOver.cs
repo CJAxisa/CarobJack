@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour {
 
   public void LoadScene(){
-    SceneManager.LoadScene(1); //loads AndreScene which is the 2nd scene in the build project
+    SceneManager.LoadScene("andreScene", LoadSceneMode.Single); //loads AndreScene which is the 2nd scene in the build project
   }
   public void BackToMenu(){
-    SceneManager.LoadScene(2);
+    SceneManager.LoadScene("mainMenu", LoadSceneMode.Single);
   }
 }

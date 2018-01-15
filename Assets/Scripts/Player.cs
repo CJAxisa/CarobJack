@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
         if (health <= 0)
         {
             die();
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(2);
         }
         if (Dot){
           if (timer > delay){
@@ -110,10 +110,14 @@ public class Player : MonoBehaviour {
             // loseHealth(1);
             // knockBack();
         }
-        if (co.gameObject.CompareTag("Victory")){
-          SceneManager.LoadScene(3);
-        }
     }
+
+		public void OnTriggerEnter2D(Collider2D co) {
+			if (co.gameObject.CompareTag("Victory")){
+				SceneManager.LoadScene(3);
+			}
+		}
+
     public void OnTriggerExit2D(Collider2D co){
       if (co.gameObject.CompareTag("Lava")){
           Dot = false;
