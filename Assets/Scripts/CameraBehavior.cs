@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  * This class is attached to the main camera in the scene
- * 
+ *
  * This class analyzes the player's Viewport position and adjusts the camera to follow the player accordingly
  * The class will also change the scene to the gameOverScene once the player has died
- * 
- * 
+ *
+ *
  */
 public class CameraBehavior : MonoBehaviour {
     private GameObject player;
@@ -31,9 +31,9 @@ public class CameraBehavior : MonoBehaviour {
         screenWidth = mainCamera.pixelWidth;
         screenHeight = mainCamera.pixelHeight;
 
-        speed = player.GetComponent<Mover>().speed;
-        maxSpeed = player.GetComponent<Mover>().maxSpeed;
-        gravity = player.GetComponent<Mover>().gravity;
+        speed = 0.3f;
+        maxSpeed = 10;
+        gravity = player.GetComponent<Player>().gravity;
 
     }
 
@@ -45,7 +45,7 @@ public class CameraBehavior : MonoBehaviour {
             //This means the player is dead and we should cut to the game over scene
         }
         Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(player.transform.position);
-        velocity = Vector3.zero; 
+        velocity = Vector3.zero;
 
         if (playerScreenPos.x > screenWidth * 0.6)
         {
@@ -69,7 +69,7 @@ public class CameraBehavior : MonoBehaviour {
         }
         else if (playerScreenPos.y < screenHeight * 0.4)
         {
-            velocity.y = -maxSpeed*Time.deltaTime;
+            velocity.y = -maxSpeed * Time.deltaTime;
         }
         transform.Translate(velocity);
 
