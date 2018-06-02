@@ -76,30 +76,32 @@ public class Player : MonoBehaviour {
             isGrounded = false;
 
         if (controller.collisions.below) {
-      jumpCount = 0;
-      jumpTimer = 0;
-    }
+            jumpCount = 0;
+            jumpTimer = 0;
+        }
 
 		Vector2 input = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-		if((Input.GetKeyDown("w")|| Input.GetKeyDown("space"))&& controller.collisions.below) {
+        
+
+        if ((Input.GetKeyDown("w")|| Input.GetKeyDown("space"))&& controller.collisions.below) {
 			// So if the player presses 'w' AND the player object is standing on something
 			velocity.y = jumpForce;
 			jumpCount++;
             isGrounded=false;
             currentState = PlayerStates.Rising;
 		}
-    else if((Input.GetKeyDown("w") ||Input.GetKeyDown("space"))&& !controller.collisions.below && jumpCount < numJumps) {
-      velocity.y = (jumpForce - (jumpCount/jumpForce)) * secondJumpModifier; //* 0.75f;
-      jumpCount++;
-      jumpTimer = 0;
-    }
-    jumpTimer += Time.deltaTime;
-    if((Input.GetKeyUp("w") || Input.GetKeyUp("space"))&& !controller.collisions.below && velocity.y > 0) {
-      //if(jumpTimer < modifyJumpHeightTimeWindow) {
-        velocity.y = fallOffJumpHeight;
-      //}
-    }
+        else if((Input.GetKeyDown("w") ||Input.GetKeyDown("space"))&& !controller.collisions.below && jumpCount < numJumps) {
+            velocity.y = (jumpForce - (jumpCount/jumpForce)) * secondJumpModifier; //* 0.75f;
+            jumpCount++;
+            jumpTimer = 0;
+        }
+        jumpTimer += Time.deltaTime;
+        if((Input.GetKeyUp("w") || Input.GetKeyUp("space"))&& !controller.collisions.below && velocity.y > 0) {
+            //if(jumpTimer < modifyJumpHeightTimeWindow) {
+            velocity.y = fallOffJumpHeight;
+            //}
+        }
 
 		velocity.x = input.x * walkSpeed;
 		velocity.y += gravity * Time.deltaTime;
@@ -119,6 +121,10 @@ public class Player : MonoBehaviour {
             currentState = PlayerStates.Falling;
         if (!isGrounded && velocity.y > 0)
             currentState = PlayerStates.Rising;
+        if (Input.GetKeyDown("p"))
+        {
+            currentState = PlayerStates.Casting;
+        }
 
         if (facingRight)
             playerSpriteRenderer.flipX = false;
@@ -135,30 +141,45 @@ public class Player : MonoBehaviour {
                     playerAnimator.SetBool("IsWalking", false);
                     playerAnimator.SetBool("IsRising", false);
                     playerAnimator.SetBool("IsFalling", false);
+                    playerAnimator.SetBool("IsCasting", false);
                     break;
                 case PlayerStates.Walking:
                     playerAnimator.SetBool("IsIdle", false);
                     playerAnimator.SetBool("IsWalking", true);
                     playerAnimator.SetBool("IsRising", false);
                     playerAnimator.SetBool("IsFalling", false);
+                    playerAnimator.SetBool("IsCasting", false);
                     break;
                 case PlayerStates.Rising:
                     playerAnimator.SetBool("IsIdle", false);
                     playerAnimator.SetBool("IsWalking", false);
                     playerAnimator.SetBool("IsRising", true);
                     playerAnimator.SetBool("IsFalling", false);
+                    playerAnimator.SetBool("IsCasting", false);
                     break;
                 case PlayerStates.Falling:
                     playerAnimator.SetBool("IsIdle", false);
                     playerAnimator.SetBool("IsWalking", false);
                     playerAnimator.SetBool("IsRising", false);
                     playerAnimator.SetBool("IsFalling", true);
+                    playerAnimator.SetBool("IsCasting", false);
+                    break;
+                case PlayerStates.Casting:
+                    playerAnimator.SetBool("IsIdle", false);
+                    playerAnimator.SetBool("IsWalking", false);
+                    playerAnimator.SetBool("IsRising", false);
+                    playerAnimator.SetBool("IsFalling", false);
+                    playerAnimator.SetBool("IsCasting", true);
                     break;
                 default:
                     break;
             }
         }
 
+    }
+
+    void Attack()
+    {
     }
 
 	void OnTriggerEnter2D(Collider2D collider) {
