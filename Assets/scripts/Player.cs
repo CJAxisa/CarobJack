@@ -125,7 +125,7 @@ public class Player : MonoBehaviour {
         {
             currentState = PlayerStates.Casting;
         }
-
+        
         if (facingRight)
             playerSpriteRenderer.flipX = false;
         else
