@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 
     public enum PlayerStates
     {
+        Empty,
         Idle,
         Walking,
         Rising,
@@ -23,8 +24,8 @@ public class Player : MonoBehaviour {
     private float jumpTimer;
     public float modifyJumpHeightTimeWindow;
     public float fallOffJumpHeight;
+    public bool facingRight;
     private bool isGrounded;
-    private bool facingRight;
 
 	public float gravity = -20;
 	public float jumpForce = 8.5f;
@@ -186,6 +187,7 @@ public class Player : MonoBehaviour {
 		if(collider.gameObject.CompareTag("Hazard")) {
       print("Hazard detected!");
       gameObject.transform.position = respawnPoint;
+            gameObject.GetComponent<TomeManager>().createTomes();
       camera[1].SetActive(true);
     }
     if(collider.gameObject.CompareTag("Enemy")) {
