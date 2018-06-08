@@ -7,24 +7,23 @@ public class Player : MonoBehaviour {
 
   private GameObject [] camera;
   private Vector3 respawnPoint;
-
-	public float walkSpeed;
-	public float numJumps;
 	private float jumpCount;
   private float jumpTimer;
+  public float walkSpeed;
+	public float numJumps;
   public float modifyJumpHeightTimeWindow;
   public float fallOffJumpHeight;
-
 	public float gravity = -20;
 	public float jumpForce = 8.5f;
   public float secondJumpModifier;
-	Vector3 velocity;
+	static Vector3 velocity;
+  static bool isGrounded;
 
 	Controller2D controller;
 
-	// Use this for initialization
 	void Start () {
 		controller = GetComponent<Controller2D> ();
+    isGrounded = false;
 		jumpCount = 0;
     camera = new GameObject[4];
     camera[0] = GameObject.Find("Main Camera");
@@ -39,12 +38,15 @@ public class Player : MonoBehaviour {
     respawnPoint = new Vector3(-234.8f, 36.375f, 0f);
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if(controller.collisions.above || controller.collisions.below) {
-			velocity.y = 0f;	// This prevents the player from accumulating gravity; to see what this does try commenting this out
+			velocity.y = 0f;	// This prevents the player from accumulating gravity
 		}
+    else {
+      isGrounded = false;
+    }
     if(controller.collisions.below) {
+      isGrounded = true;
       jumpCount = 0;
       jumpTimer = 0;
     }
