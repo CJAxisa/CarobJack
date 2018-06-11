@@ -134,7 +134,7 @@ public class Player : MonoBehaviour {
 
         if (prevState != currentState)
         {
-            Debug.Log("STATE HAS CHANGED");
+            //Debug.Log("STATE HAS CHANGED");
             switch (currentState)
             {
                 case PlayerStates.Idle:
