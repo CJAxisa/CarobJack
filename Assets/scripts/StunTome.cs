@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (Tomes))]
 namespace Tomes {
+  [RequireComponent (typeof (AudioManager), typeof (TomeManager))]
 	public class StunTome : Tome {
 		public GameObject[] stunBeam;
-		public AudioClip stun;
 		private AudioSource audioSource;
 
 		void Start() {

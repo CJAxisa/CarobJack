@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof (Tomes))]
 namespace Tomes {
-	public class FireTome : Tome {
+  [RequireComponent (typeof (AudioManager), typeof (TomeManager))]
+  public class FireTome : Tome {
 		public GameObject[] flames;
-		bool toggle;
-    //bool inUse;
-		public AudioClip initialFlame;
-		public AudioClip sustainedFlame;
 		private AudioSource audioSource;
-		/*public FireTome() {
-			tomeName = "fire";
-		}*/
 
 		void Start() {
 			flames = GameObject.FindGameObjectsWithTag("Flame");
@@ -38,12 +31,14 @@ namespace Tomes {
 		}
 
 		public override void use(bool inUse) {
-			flames[0].SetActive(inUse);
-			flames[1].SetActive(inUse);
-			flames[2].SetActive(inUse);
-		}
+      if(flames != null) {
+			   flames[0].SetActive(inUse);
+			   flames[1].SetActive(inUse);
+			   flames[2].SetActive(inUse);
+      }
+    }
 
-		public override void playSound(bool playCan) {
+		public override void playSound(bool toggle) {
 			;
 		}
 	}

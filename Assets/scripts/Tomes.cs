@@ -7,9 +7,6 @@ namespace Tomes {
     public bool isActive = false;
     public string tomeName;
 		public abstract void use(bool inUse);
-		public abstract void playSound(bool playCan);
-		//public void toggle() {
-		//	isActive = !isActive;
-		//}
+		public abstract void playSound(bool toggle);
 	}
 }
