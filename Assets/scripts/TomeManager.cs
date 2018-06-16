@@ -30,18 +30,34 @@ public class TomeManager : MonoBehaviour {
 
     GameObject player;
 
+    //gui stuff
+    public Texture2D tomeSelect;
+    public Texture2D fireEmblem;
+    public Texture2D floatEmblem;
+    public Texture2D lightningEmblem;
+
+    Rect tomeSelectPos;
+    Rect firstTomePos;
+    Rect secondTomePos;
+    Rect thirdTomePos;
+
     // Use this for initialization
     void Start () {
         firstTome = Tomes.Fireball;
-        secondTome = Tomes.Dash;
+        secondTome = Tomes.Lightning;
         thirdTome = Tomes.Float;
 
         createTomes();
 
+        tomeSelectPos = new Rect(Screen.width / 2f - 97f, Screen.height - 64f, 193f, 64f);
+        firstTomePos = new Rect(Screen.width / 2f - 95f, Screen.height - 64f, 62f, 62f);
+        secondTomePos = new Rect(Screen.width / 2f - 95f +62f, Screen.height - 64f, 62f, 62f);
+        thirdTomePos = new Rect(Screen.width / 2f + 29f, Screen.height - 64f, 62f, 62f);
+
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 
         //checks if the tomes are active and if they should be
         if (firstTome == Tomes.Empty)
@@ -58,6 +74,7 @@ public class TomeManager : MonoBehaviour {
             thirdTomeObj.SetActive(false);
         else if (thirdTome != Tomes.Empty && thirdTomeObj.activeInHierarchy == false)
             thirdTomeObj.SetActive(true);
+
 
         switch (firstTome)
         {
@@ -113,5 +130,103 @@ public class TomeManager : MonoBehaviour {
         thirdTomeObj = Instantiate(tomePrefab, thirdTomePosition, Quaternion.identity);
         thirdTomeObj.GetComponent<TomeFollower>().maxSpeed += Random.Range(-0.010f, 0.010f);
 
+    } 
+
+    private void OnGUI()
+    {
+        GUI.DrawTexture(tomeSelectPos,tomeSelect);
+
+        switch (firstTome)
+        {
+            case Tomes.Empty:
+                break;
+            case Tomes.Fireball:
+                GUI.DrawTexture(firstTomePos, fireEmblem);
+                break;
+            case Tomes.Lightning:
+                GUI.DrawTexture(firstTomePos, lightningEmblem);
+                break;
+            case Tomes.HighJump:
+                break;
+            case Tomes.Float:
+                GUI.DrawTexture(firstTomePos, floatEmblem);
+                break;
+            case Tomes.MagicMissile:
+                break;
+            case Tomes.Lazer:
+                break;
+            case Tomes.Dash:
+                break;
+            case Tomes.SpeedUp:
+                break;
+            case Tomes.PowerUp:
+                break;
+            case Tomes.Stun:
+                break;
+            default:
+                break;
+        }
+
+        switch (secondTome)
+        {
+            case Tomes.Empty:
+                break;
+            case Tomes.Fireball:
+                GUI.DrawTexture(secondTomePos, fireEmblem);
+                break;
+            case Tomes.Lightning:
+                GUI.DrawTexture(secondTomePos, lightningEmblem);
+                break;
+            case Tomes.HighJump:
+                break;
+            case Tomes.Float:
+                GUI.DrawTexture(secondTomePos, floatEmblem);
+                break;
+            case Tomes.MagicMissile:
+                break;
+            case Tomes.Lazer:
+                break;
+            case Tomes.Dash:
+                break;
+            case Tomes.SpeedUp:
+                break;
+            case Tomes.PowerUp:
+                break;
+            case Tomes.Stun:
+                break;
+            default:
+                break;
+        }
+
+        switch (thirdTome)
+        {
+            case Tomes.Empty:
+                break;
+            case Tomes.Fireball:
+                GUI.DrawTexture(thirdTomePos, fireEmblem);
+                break;
+            case Tomes.Lightning:
+                GUI.DrawTexture(thirdTomePos, lightningEmblem);
+                break;
+            case Tomes.HighJump:
+                break;
+            case Tomes.Float:
+                GUI.DrawTexture(thirdTomePos, floatEmblem);
+                break;
+            case Tomes.MagicMissile:
+                break;
+            case Tomes.Lazer:
+                break;
+            case Tomes.Dash:
+                break;
+            case Tomes.SpeedUp:
+                break;
+            case Tomes.PowerUp:
+                break;
+            case Tomes.Stun:
+                break;
+            default:
+                break;
+        }
     }
 }
