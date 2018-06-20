@@ -18,9 +18,13 @@ public class TomeManager : MonoBehaviour {
         Stun
     }
 
+    //all of these are public for the time being for the ease of playtesting
     public Tomes firstTome;
     public Tomes secondTome;
     public Tomes thirdTome;
+
+    public Tomes[,] tomePresets;
+    public int currentPreset;           //starts at 0
 
     public GameObject tomePrefab;
 
@@ -47,8 +51,19 @@ public class TomeManager : MonoBehaviour {
         secondTome = Tomes.Lightning;
         thirdTome = Tomes.Float;
 
-        createTomes();
+        currentPreset = 0;
+        tomePresets = new Tomes[4,3];
 
+        for (int i = 0; i < tomePresets.GetUpperBound(0); i++)
+        {
+            for (int j = 0; j < tomePresets.GetUpperBound(1); j++)
+            {
+                tomePresets[i, j] = Tomes.Empty;
+            }
+        }
+
+        createTomes();
+        
         tomeSelectPos = new Rect(Screen.width / 2f - 97f, Screen.height - 64f, 193f, 64f);
         firstTomePos = new Rect(Screen.width / 2f - 95f, Screen.height - 64f, 62f, 62f);
         secondTomePos = new Rect(Screen.width / 2f - 95f +62f, Screen.height - 64f, 62f, 62f);
@@ -59,6 +74,8 @@ public class TomeManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+
+        checkForInput();
         //checks if the tomes are active and if they should be
         if (firstTome == Tomes.Empty)
             firstTomeObj.SetActive(false);
@@ -106,6 +123,24 @@ public class TomeManager : MonoBehaviour {
         }
     }
 
+    public void checkForInput()
+    {
+        if(Input.mouseScrollDelta.y>=1)
+        {
+            if (currentPreset == 0)
+                currentPreset = tomePresets.GetUpperBound(0);
+            else
+                currentPreset--;
+        }
+        else if (Input.mouseScrollDelta.y <= -1)
+        {
+            if (currentPreset == tomePresets.GetUpperBound(0))
+                currentPreset = 0;
+            else
+                currentPreset++;
+        }
+    }
+
     public void createTomes()
     {
         //nullcheck
@@ -136,7 +171,7 @@ public class TomeManager : MonoBehaviour {
     {
         GUI.DrawTexture(tomeSelectPos,tomeSelect);
 
-        switch (firstTome)
+        switch (tomePresets[currentPreset,0])
         {
             case Tomes.Empty:
                 break;
@@ -167,7 +202,7 @@ public class TomeManager : MonoBehaviour {
                 break;
         }
 
-        switch (secondTome)
+        switch (tomePresets[currentPreset, 1])
         {
             case Tomes.Empty:
                 break;
@@ -198,7 +233,7 @@ public class TomeManager : MonoBehaviour {
                 break;
         }
 
-        switch (thirdTome)
+        switch (tomePresets[currentPreset, 2])
         {
             case Tomes.Empty:
                 break;
