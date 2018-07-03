@@ -5,20 +5,23 @@ using UnityEngine;
 [RequireComponent (typeof (Controller2D), typeof (AudioManager))]
 public class Player : MonoBehaviour {
 
-  private GameObject [] camera;
+  private GameObject [] cameras;
   private Vector3 respawnPoint;
 	private float jumpCount;
   private float jumpTimer;
-  public float walkSpeed;
-	public float numJumps;
-  public float modifyJumpHeightTimeWindow;
-  public float fallOffJumpHeight;
-	public float gravity = -20;
-	public float jumpForce = 8.5f;
-  public float secondJumpModifier;
-	public static Vector3 velocity;
-  public static bool isGrounded;
-  public static bool isFloating;
+  [Range(0, 25)] public float walkSpeed;
+	[Range (1, 10)] public int numJumps;
+  [Range (0.0f, 0.5f)] public float modifyJumpHeightTimeWindow;
+  [Range(0, 10)] public float fallOffJumpForce;
+	[Range (-30, 0)] public float gravity = -20;
+	[Range (0, 15)] public float jumpForce = 8.5f;
+  [Range (0.0f, 1.0f)] public float secondJumpModifier;
+	public Vector3 velocity;
+  public bool isGrounded;
+  public bool isFloating;
+
+  public Attributes playerAttributes = new Attributes();
+  //public TomeManager tomeManager = new TomeManager();
 
 	Controller2D controller;
 
@@ -27,15 +30,15 @@ public class Player : MonoBehaviour {
     CheckIfGrounded();
     isFloating = false;
 		jumpCount = 0;
-    camera = new GameObject[4];
-    camera[0] = GameObject.Find("Main Camera");
-    camera[1] = GameObject.Find("IntroCamera");
-    camera[2] = GameObject.Find("BossCamera");
-    camera[3] = GameObject.Find("SecretCamera");
+    cameras = new GameObject[4];
+    cameras[0] = GameObject.Find("Main Camera");
+    cameras[1] = GameObject.Find("IntroCamera");
+    cameras[2] = GameObject.Find("BossCamera");
+    cameras[3] = GameObject.Find("SecretCamera");
 
-    for(int i = 1; i < camera.Length; i++) {
-      if(camera[i] != null) {
-        camera[i].SetActive(false);
+    for(int i = 1; i < cameras.Length; i++) {
+      if(cameras[i] != null) {
+        cameras[i].SetActive(false);
       }
     }
 
@@ -66,20 +69,20 @@ public class Player : MonoBehaviour {
   }
 
   void ManageJump() {
-    if(Input.GetKeyDown("w") && controller.collisions.below) {
+    if(Input.GetButtonDown("Jump") && controller.collisions.below) {
       // So if the player presses 'w' AND the player object is standing on something
       velocity.y = jumpForce;
       jumpCount++;
     }
-    else if(Input.GetKeyDown("w") && !controller.collisions.below && jumpCount < numJumps) {
+    else if(Input.GetButtonDown("Jump") && !controller.collisions.below && jumpCount < numJumps) {
       velocity.y = (jumpForce - (jumpCount/jumpForce)) * secondJumpModifier; //* 0.75f;
       jumpCount++;
       jumpTimer = 0;
     }
     jumpTimer += Time.deltaTime;
-    if(Input.GetKeyUp("w") && !controller.collisions.below && velocity.y > 0) {
+    if(Input.GetButtonUp("Jump") && !controller.collisions.below && velocity.y > 0) {
       //if(jumpTimer < modifyJumpHeightTimeWindow) {
-        velocity.y = fallOffJumpHeight;
+        velocity.y = fallOffJumpForce;
       //}
     }
   }
@@ -97,26 +100,26 @@ public class Player : MonoBehaviour {
 		if(collider.gameObject.CompareTag("Hazard")) {
       print("Hazard detected!");
       gameObject.transform.position = respawnPoint;
-      camera[1].SetActive(true);
+      cameras[1].SetActive(true);
     }
     if(collider.gameObject.CompareTag("Enemy")) {
       print("Enemy detected");
     }
     if(collider.gameObject.CompareTag("ToggleCamera")) {
       print("Toggle Main Camera off!");
-      camera[0].SetActive(false);
+      cameras[0].SetActive(false);
 
       if(collider.gameObject.name == "ToggleIntroCamera") {
         print("Intro camera on!");
-        camera[1].SetActive(true);
+        cameras[1].SetActive(true);
       }
       else if(collider.gameObject.name == "ToggleBossCamera") {
         print("Boss camera on!");
-        camera[2].SetActive(true);
+        cameras[2].SetActive(true);
       }
       else {
         print("Secret camera on!");
-        camera[3].SetActive(true);
+        cameras[3].SetActive(true);
       }
     }
   }
@@ -125,19 +128,47 @@ public class Player : MonoBehaviour {
     if(collider.gameObject.CompareTag("ToggleCamera")) {
       if(collider.gameObject.name == "ToggleIntroCamera") {
         print("Intro camera off!");
-        camera[1].SetActive(false);
+        cameras[1].SetActive(false);
       }
       else if(collider.gameObject.name == "ToggleBossCamera") {
         print("Boss camera off!");
-        camera[2].SetActive(false);
+        cameras[2].SetActive(false);
       }
       else {
         print("Secret camera off!");
-        camera[3].SetActive(false);
+        cameras[3].SetActive(false);
       }
 
       print("Main camera on!");
-      camera[0].SetActive(true);
+      cameras[0].SetActive(true);
+      cameras[0].transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 10);
     }
   }
 }
+
+// This class will be used to store the player statistics
+public class Attributes {
+  //TODO: Discuss whether this should be a float or int
+  public float MaxHealth;
+
+  public int MaxNumJumps;
+
+  //TODO: Discuss what other resistances the player will have
+  public float MaxAttackDefense;
+  public float MaxMagicDefense;
+
+  //TODO: Discuss what other damage types the player will have
+  public float MaxMagicDamage;
+  public float MaxAttackDamage;
+
+  public float DodgeChance;
+  public float CritChance;
+
+  public float CooldownReduction;
+
+  public float CurrentHealth;
+  public int CurrentNumJumps;
+}
+
+
+//TODO: What if we just create a tome manager obect here and call all of the functions here so we don't have to worry about using static bools to configure attributes with tomes?

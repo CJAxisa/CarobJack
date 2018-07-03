@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c5eece54e1d606148b72e318efa4d559
-timeCreated: 1523126838
+guid: 329af9034e56f264d92f9d31e4a30ddc
+timeCreated: 1529700770
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: FlyingCreature_0
-    21300002: FlyingCreature_1
-    21300004: FlyingCreature_2
-    21300006: FlyingCreature_3
+    21300000: SwordSwing_0
+    21300002: SwordSwing_1
+    21300004: SwordSwing_3
+    21300006: SwordSwing_2
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -85,76 +85,60 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FlyingCreature_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 51
-        width: 51
-        height: 51
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: 10.977058, y: 1.0504608}
-        - {x: 13.29306, y: -1.1829834}
-        - {x: 16.959736, y: 2.8700256}
-        - {x: 14.788483, y: 4.8139725}
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: FlyingCreature_1
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 51
-        width: 51
-        height: 51
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -14.578495, y: 4.392975}
-        - {x: -16.275742, y: 1.7252731}
-        - {x: -12.687553, y: -1.314476}
-        - {x: -10.977058, y: 1.0637207}
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: FlyingCreature_2
+      name: SwordSwing_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 51
-        height: 51
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -13.208266, y: -4.0855618}
-        - {x: -16.478004, y: -7.242672}
-        - {x: -14.51916, y: -9.625427}
-        - {x: -11.160225, y: -6.0092106}
+      physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: FlyingCreature_3
+      name: SwordSwing_1
       rect:
         serializedVersion: 2
-        x: 51
+        x: 32
         y: 0
-        width: 51
-        height: 51
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: 15.1614685, y: -10.085096}
-        - {x: 10.775467, y: -6.4260674}
-        - {x: 13.1236725, y: -3.867569}
-        - {x: 17.022339, y: -8.013927}
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SwordSwing_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SwordSwing_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
     outline: []
     physicsShape: []

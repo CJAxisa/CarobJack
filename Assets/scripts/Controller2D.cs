@@ -17,12 +17,12 @@ public class Controller2D : MonoBehaviour {
 	float horizontalRaySpacing;			// the distance between each horizontal ray
 	float verticalRaySpacing;				// The distance between each vertical ray
 
-	BoxCollider2D collider;					// This will hold our player's BoxCollider2D
+	BoxCollider2D boxCollider;					// This will hold our player's BoxCollider2D
 	RaycastOrigins raycastOrigins;	// See the struct that we have created at the bottom of the file
 	public CollisionInfo collisions;				// See the struct that we have created at the bottom of the file
 
 	void Start() {
-		collider = GetComponent<BoxCollider2D>();
+		boxCollider = GetComponent<BoxCollider2D>();
 		CalculateRaySpacing ();
 	}
 
@@ -184,9 +184,9 @@ public class Controller2D : MonoBehaviour {
   }
 
 	void UpdateRaycastOrigins() {
-		Bounds bounds = collider.bounds;
+		Bounds bounds = boxCollider.bounds;
 		// So that the bounds are shrunken inward:
-		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box collider which is good because (?)
+		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box boxCollider which is good because (?)
 
 		// So if you think of a box, this will represent the raycast origin:
 		raycastOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);	// from the bottom left vertex
@@ -218,9 +218,9 @@ public class Controller2D : MonoBehaviour {
 										y-axis of BoxCollider2D
 	*/
 	void CalculateRaySpacing() {
-		Bounds bounds = collider.bounds;
+		Bounds bounds = boxCollider.bounds;
 		// So that the bounds are shrunken inward:
-		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box collider which is good because (?)
+		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box boxCollider which is good because (?)
 
 		// This will make sure that at least 2 rays are being fired:
 		horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);	// horizontally

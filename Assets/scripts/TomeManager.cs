@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using Tomes;
 using UnityEngine;
 
-[RequireComponent (typeof (FireTome), typeof (FloatTome), typeof (StunTome))]
 [RequireComponent (typeof (AudioManager))]
 public class TomeManager : MonoBehaviour {
   private List <Tome> inventory;
-  private Tome currentTome;
+  public Tome currentTome;
   private int tomeIndex;
-  private float timer = 0f;
+
+  private float playSoundTimer = 0f;
   private bool playSound = true;
+
   private AudioSource audioSource;
+  private AudioManager audioManager;
+
+  void Awake() {
+    audioManager = GetComponent<AudioManager>();
+  }
 
   void Start() {
+    currentTome = GetComponent<FloatTome>();
     inventory = new List<Tome>();
-    tomeIndex = 0;
   }
 
   void Update() {
@@ -23,20 +29,20 @@ public class TomeManager : MonoBehaviour {
     UseTome();
   }
 
-  void SwitchTome() {
+  public void SwitchTome() {
     if(Input.GetKeyDown("q") || Input.GetAxis("Mouse ScrollWheel") < 0) {
       if(inventory.Count > 1) {
         currentTome.use(false);
         if(tomeIndex == 0) {
           tomeIndex = inventory.Count - 1;
-          if(AudioManager.switchTome != null) {
-            audioSource.PlayOneShot(AudioManager.switchTome, 0.4f);
+          if(audioManager.switchTome != null) {
+            audioSource.PlayOneShot(audioManager.switchTome, 0.4f);
           }
         }
         else {
           tomeIndex -= 1;
-          if(AudioManager.switchTome != null) {
-            audioSource.PlayOneShot(AudioManager.switchTome, 0.4f);
+          if(audioManager.switchTome != null) {
+            audioSource.PlayOneShot(audioManager.switchTome, 0.4f);
           }
         }
         currentTome = inventory[tomeIndex];
@@ -47,14 +53,14 @@ public class TomeManager : MonoBehaviour {
         currentTome.use(false);
         if(tomeIndex == inventory.Count - 1) {
           tomeIndex = 0;
-          if(AudioManager.switchTome != null) {
-            audioSource.PlayOneShot(AudioManager.switchTome, 0.4f);
+          if(audioManager.switchTome != null) {
+            audioSource.PlayOneShot(audioManager.switchTome, 0.4f);
           }
         }
         else {
           tomeIndex += 1;
-          if(AudioManager.switchTome != null) {
-            audioSource.PlayOneShot(AudioManager.switchTome, 0.4f);
+          if(audioManager.switchTome != null) {
+            audioSource.PlayOneShot(audioManager.switchTome, 0.4f);
           }
         }
         currentTome = inventory[tomeIndex];
@@ -62,10 +68,9 @@ public class TomeManager : MonoBehaviour {
     }
   }
 
-  void UseTome() {
+  public void UseTome() {
 	  if(inventory.Count > 0 || currentTome != null) {
 	    if(Input.GetMouseButtonDown(0) || Input.GetKeyDown("l")) {
-        print("floating");
 		    currentTome.use(true);
 			  currentTome.playSound(true);
 	    }
@@ -77,15 +82,15 @@ public class TomeManager : MonoBehaviour {
     else {
       if(Input.GetMouseButtonDown(0)) {
 			  if(playSound) {
-				  audioSource.PlayOneShot(AudioManager.cannotUse, 0.4f);
+				  audioSource.PlayOneShot(audioManager.cannotUse, 0.4f);
 					playSound = false;
 				}
 			}
 			if(!playSound) {
-			  timer += 1.0f * Time.deltaTime;
-				if(timer > AudioManager.cannotUseSoundDelay) {
+			  playSoundTimer += 1.0f * Time.deltaTime;
+				if(playSoundTimer > audioManager.cannotUseSoundDelay) {
 				  playSound = true;
-					timer = 0f;
+					playSoundTimer = 0f;
 				}
 			}
     }
@@ -98,7 +103,7 @@ public class TomeManager : MonoBehaviour {
     inventory.Add(newTome);
     currentTome = newTome; //<----- This makes your new tome the newly acquired tome
     tomeIndex = inventory.Count - 1;
-    print("Added tome");
+    Debug.Log("Added tome");
   }
 
   void OnTriggerEnter2D(Collider2D other) {
@@ -107,13 +112,13 @@ public class TomeManager : MonoBehaviour {
 		  /* We have collided with a tome object so lets add the tome based on the game objects name */
 			Debug.Log("Collided with the: " + other.name);
 			if(other.name == "FireTome") {
-				AddTome(gameObject.GetComponent<FireTome>());
+				//AddTome(gameObject.GetComponent<FireTome>());
 			}
 			else if(other.name == "StunTome") {
-				AddTome(gameObject.GetComponent<StunTome>());
+				//AddTome(gameObject.GetComponent<StunTome>());
 			}
 			else if(other.name == "FloatTome") {
-				AddTome(gameObject.GetComponent<FloatTome>());
+				//AddTome(gameObject.GetComponent<FloatTome>());
 			}
 			/* Combat Tomes:
 			else if(other.name == "LazerTome") {
@@ -180,8 +185,8 @@ public class TomeManager : MonoBehaviour {
 			}
 			*/
 			Destroy(other.gameObject);
-      if(AudioManager.collectedTome != null) {
-			     audioSource.PlayOneShot(AudioManager.collectedTome, 0.4f);
+      if(audioManager.collectedTome != null) {
+			     audioSource.PlayOneShot(audioManager.collectedTome, 0.4f);
       }
 		}
 	}
