@@ -151,8 +151,6 @@ public class Attributes {
   //TODO: Discuss whether this should be a float or int
   public float MaxHealth;
 
-  public int MaxNumJumps;
-
   //TODO: Discuss what other resistances the player will have
   public float MaxAttackDefense;
   public float MaxMagicDefense;
@@ -161,14 +159,15 @@ public class Attributes {
   public float MaxMagicDamage;
   public float MaxAttackDamage;
 
+  //TODO: Discuss other types of luck attributes we can have
   public float DodgeChance;
   public float CritChance;
 
-  public float CooldownReduction;
+  //TODO: Discuss other reductions we could have
+  public float BaseCooldownReduction;
 
+  //TODO: Use these in the main Player class
   public float CurrentHealth;
   public int CurrentNumJumps;
+  public int MaxNumJumps;
 }
-
-
-//TODO: What if we just create a tome manager obect here and call all of the functions here so we don't have to worry about using static bools to configure attributes with tomes?
