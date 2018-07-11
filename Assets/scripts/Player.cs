@@ -152,7 +152,7 @@ public class Attributes {
   public float MaxHealth;
 
   //TODO: Discuss what other resistances the player will have
-  public float MaxAttackDefense;
+  public float MaxPhysicalDefense;
   public float MaxMagicDefense;
 
   //TODO: Discuss what other damage types the player will have
