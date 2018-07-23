@@ -1,16 +1,12 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 6d8837c66be1a8b41825ecc5ce66e848
-timeCreated: 1528249231
-=======
-guid: d0ad23bc6fd6aa04c81c822fb8ecc619
-timeCreated: 1528471344
->>>>>>> nick
+guid: 4383afc2f4be25c498d92a7e0136f113
+timeCreated: 1529859033
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - OwnerGameObjectReference: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
