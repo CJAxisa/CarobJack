@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TomeManager : MonoBehaviour {
-    public enum Tomes
+    //change to tome state
+    public enum TomeState
     {
         Empty,
         Fireball,
@@ -19,11 +20,13 @@ public class TomeManager : MonoBehaviour {
     }
 
     //all of these are public for the time being for the ease of playtesting
-    public Tomes firstTome;
-    public Tomes secondTome;
-    public Tomes thirdTome;
+    public TomeState firstTome;
+    public TomeState secondTome;
+    public TomeState thirdTome;
 
-    public Tomes[,] tomePresets;
+    //add three public vars of class tome
+
+    public TomeState[,] tomePresets;
     public int currentPreset;           //starts at 0
 
     public GameObject tomePrefab;
@@ -47,18 +50,18 @@ public class TomeManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        firstTome = Tomes.Fireball;
-        secondTome = Tomes.Lightning;
-        thirdTome = Tomes.Float;
+        firstTome = TomeState.Fireball;
+        secondTome = TomeState.Lightning;
+        thirdTome = TomeState.Float;
 
         currentPreset = 0;
-        tomePresets = new Tomes[4,3];
+        tomePresets = new TomeState[5,3];
 
         for (int i = 0; i < tomePresets.GetUpperBound(0); i++)
         {
             for (int j = 0; j < tomePresets.GetUpperBound(1); j++)
             {
-                tomePresets[i, j] = Tomes.Empty;
+                tomePresets[i, j] = TomeState.Empty;
             }
         }
 
@@ -77,46 +80,46 @@ public class TomeManager : MonoBehaviour {
 
         checkForInput();
         //checks if the tomes are active and if they should be
-        if (firstTome == Tomes.Empty)
+        if (firstTome == TomeState.Empty)
             firstTomeObj.SetActive(false);
-        else if(firstTome != Tomes.Empty && firstTomeObj.activeInHierarchy ==false)
+        else if(firstTome != TomeState.Empty && firstTomeObj.activeInHierarchy ==false)
             firstTomeObj.SetActive(true);
 
-        if (secondTome == Tomes.Empty)
+        if (secondTome == TomeState.Empty)
             secondTomeObj.SetActive(false);
-        else if (secondTome != Tomes.Empty && secondTomeObj.activeInHierarchy == false)
+        else if (secondTome != TomeState.Empty && secondTomeObj.activeInHierarchy == false)
             secondTomeObj.SetActive(true);
 
-        if (thirdTome == Tomes.Empty)
+        if (thirdTome == TomeState.Empty)
             thirdTomeObj.SetActive(false);
-        else if (thirdTome != Tomes.Empty && thirdTomeObj.activeInHierarchy == false)
+        else if (thirdTome != TomeState.Empty && thirdTomeObj.activeInHierarchy == false)
             thirdTomeObj.SetActive(true);
 
 
         switch (firstTome)
         {
-            case Tomes.Empty:
+            case TomeState.Empty:
                 break;
-            case Tomes.Fireball:
+            case TomeState.Fireball:
                 //gameObject.GetComponent<FireTome>().enabled = true;
                 break;
-            case Tomes.Lightning:
+            case TomeState.Lightning:
                 break;
-            case Tomes.HighJump:
+            case TomeState.HighJump:
                 break;
-            case Tomes.Float:
+            case TomeState.Float:
                 break;
-            case Tomes.MagicMissile:
+            case TomeState.MagicMissile:
                 break;
-            case Tomes.Lazer:
+            case TomeState.Lazer:
                 break;
-            case Tomes.Dash:
+            case TomeState.Dash:
                 break;
-            case Tomes.SpeedUp:
+            case TomeState.SpeedUp:
                 break;
-            case Tomes.PowerUp:
+            case TomeState.PowerUp:
                 break;
-            case Tomes.Stun:
+            case TomeState.Stun:
                 break;
             default:
                 break;
@@ -173,30 +176,30 @@ public class TomeManager : MonoBehaviour {
 
         switch (tomePresets[currentPreset,0])
         {
-            case Tomes.Empty:
+            case TomeState.Empty:
                 break;
-            case Tomes.Fireball:
+            case TomeState.Fireball:
                 GUI.DrawTexture(firstTomePos, fireEmblem);
                 break;
-            case Tomes.Lightning:
+            case TomeState.Lightning:
                 GUI.DrawTexture(firstTomePos, lightningEmblem);
                 break;
-            case Tomes.HighJump:
+            case TomeState.HighJump:
                 break;
-            case Tomes.Float:
+            case TomeState.Float:
                 GUI.DrawTexture(firstTomePos, floatEmblem);
                 break;
-            case Tomes.MagicMissile:
+            case TomeState.MagicMissile:
                 break;
-            case Tomes.Lazer:
+            case TomeState.Lazer:
                 break;
-            case Tomes.Dash:
+            case TomeState.Dash:
                 break;
-            case Tomes.SpeedUp:
+            case TomeState.SpeedUp:
                 break;
-            case Tomes.PowerUp:
+            case TomeState.PowerUp:
                 break;
-            case Tomes.Stun:
+            case TomeState.Stun:
                 break;
             default:
                 break;
@@ -204,30 +207,30 @@ public class TomeManager : MonoBehaviour {
 
         switch (tomePresets[currentPreset, 1])
         {
-            case Tomes.Empty:
+            case TomeState.Empty:
                 break;
-            case Tomes.Fireball:
+            case TomeState.Fireball:
                 GUI.DrawTexture(secondTomePos, fireEmblem);
                 break;
-            case Tomes.Lightning:
+            case TomeState.Lightning:
                 GUI.DrawTexture(secondTomePos, lightningEmblem);
                 break;
-            case Tomes.HighJump:
+            case TomeState.HighJump:
                 break;
-            case Tomes.Float:
+            case TomeState.Float:
                 GUI.DrawTexture(secondTomePos, floatEmblem);
                 break;
-            case Tomes.MagicMissile:
+            case TomeState.MagicMissile:
                 break;
-            case Tomes.Lazer:
+            case TomeState.Lazer:
                 break;
-            case Tomes.Dash:
+            case TomeState.Dash:
                 break;
-            case Tomes.SpeedUp:
+            case TomeState.SpeedUp:
                 break;
-            case Tomes.PowerUp:
+            case TomeState.PowerUp:
                 break;
-            case Tomes.Stun:
+            case TomeState.Stun:
                 break;
             default:
                 break;
@@ -235,30 +238,30 @@ public class TomeManager : MonoBehaviour {
 
         switch (tomePresets[currentPreset, 2])
         {
-            case Tomes.Empty:
+            case TomeState.Empty:
                 break;
-            case Tomes.Fireball:
+            case TomeState.Fireball:
                 GUI.DrawTexture(thirdTomePos, fireEmblem);
                 break;
-            case Tomes.Lightning:
+            case TomeState.Lightning:
                 GUI.DrawTexture(thirdTomePos, lightningEmblem);
                 break;
-            case Tomes.HighJump:
+            case TomeState.HighJump:
                 break;
-            case Tomes.Float:
+            case TomeState.Float:
                 GUI.DrawTexture(thirdTomePos, floatEmblem);
                 break;
-            case Tomes.MagicMissile:
+            case TomeState.MagicMissile:
                 break;
-            case Tomes.Lazer:
+            case TomeState.Lazer:
                 break;
-            case Tomes.Dash:
+            case TomeState.Dash:
                 break;
-            case Tomes.SpeedUp:
+            case TomeState.SpeedUp:
                 break;
-            case Tomes.PowerUp:
+            case TomeState.PowerUp:
                 break;
-            case Tomes.Stun:
+            case TomeState.Stun:
                 break;
             default:
                 break;
