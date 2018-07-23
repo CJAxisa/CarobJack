@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: c5eece54e1d606148b72e318efa4d559
-timeCreated: 1523126838
+guid: c7122579d8462ba43ba097bf43a9fbd4
+timeCreated: 1529000873
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: FlyingCreature_0
-    21300002: FlyingCreature_1
-    21300004: FlyingCreature_2
-    21300006: FlyingCreature_3
+    21300000: Background_Forest_0
+    21300002: Background_Forest_1
+    21300004: Background_Forest_2
+    21300006: Background_Forest_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -85,41 +85,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FlyingCreature_0
+      name: Background_Forest_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 51
-        width: 51
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: FlyingCreature_1
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 51
-        width: 51
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: FlyingCreature_2
-      rect:
-        serializedVersion: 2
-        x: 0
+        x: 2
         y: 0
-        width: 51
-        height: 51
+        width: 50
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,12 +99,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: FlyingCreature_3
+      name: Background_Forest_1
       rect:
         serializedVersion: 2
-        x: 51
+        x: 95
+        y: 57
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Background_Forest_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 58
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Background_Forest_3
+      rect:
+        serializedVersion: 2
+        x: 89
         y: 0
-        width: 51
+        width: 39
         height: 51
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -140,7 +140,11 @@ TextureImporter:
       outline: []
       physicsShape: []
       tessellationDetail: 0
-    outline: []
+    outline:
+    - - {x: -78, y: -32}
+      - {x: -78, y: 32}
+      - {x: -28, y: 32}
+      - {x: -28, y: -32}
     physicsShape: []
   spritePackingTag: 
   userData: 

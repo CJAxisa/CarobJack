@@ -10,18 +10,19 @@ public class Controller2D : MonoBehaviour {
 	const float skinWidth = .015f;		// We choose some arbitrarily small number
 	public int horizontalRayCount = 4;		// The number of rays that are fired horizontally
 	public int verticalRayCount = 4;			// The number of rays that are fired vertically
+  public int diagonalRayCount = 4;
 
   float maxClimbAngle = 80;
 
 	float horizontalRaySpacing;			// the distance between each horizontal ray
 	float verticalRaySpacing;				// The distance between each vertical ray
 
-	BoxCollider2D collider;					// This will hold our player's BoxCollider2D
+	BoxCollider2D boxCollider;					// This will hold our player's BoxCollider2D
 	RaycastOrigins raycastOrigins;	// See the struct that we have created at the bottom of the file
 	public CollisionInfo collisions;				// See the struct that we have created at the bottom of the file
 
 	void Start() {
-		collider = GetComponent<BoxCollider2D>();
+		boxCollider = GetComponent<BoxCollider2D>();
 		CalculateRaySpacing ();
 	}
 
@@ -37,8 +38,11 @@ public class Controller2D : MonoBehaviour {
 		if(velocity.y != 0) {
 			VerticalCollision(ref velocity); // We are passing in a reference to our velocity
 		}
-    if(velocity.x != 0 && velocity.y != 0) {
-      DiagonalCollision(ref velocity);
+    if(velocity.x < 0 && velocity.y != 0) {
+      DiagonalCollisionLeft(ref velocity);
+    }
+    else if(velocity.x > 0 && velocity.y != 0) {
+      DiagonalCollisionRight(ref velocity);
     }
 
 		transform.Translate (velocity);
@@ -112,37 +116,58 @@ public class Controller2D : MonoBehaviour {
 		}
 	}
 
-  void DiagonalCollision(ref Vector3 velocity) {
+  void DiagonalCollisionLeft(ref Vector3 velocity) {
     Vector3 rayOrigin = Vector3.zero;
-      if (velocity.x < 0 && velocity.y < 0) {
-        rayOrigin = raycastOrigins.bottomLeft;
-      }
-      else if (velocity.x < 0 && velocity.y > 0) {
-        rayOrigin = raycastOrigins.topLeft;
-      }
-      else if (velocity.x > 0 && velocity.y < 0) {
-        rayOrigin = raycastOrigins.bottomRight;
-      }
-      else if (velocity.x > 0 && velocity.y > 0) {
-        rayOrigin = raycastOrigins.topRight;
-      }
+    if (velocity.x < 0 && velocity.y < 0) {
+      rayOrigin = raycastOrigins.bottomLeft;
+    }
+    else if (velocity.x < 0 && velocity.y > 0) {
+      rayOrigin = raycastOrigins.topLeft;
+    }
 
-      float slope = Mathf.Abs(velocity.x) / Mathf.Abs(velocity.y);
-      float diagonalSkinWidth;
-      if (slope <= 1) {
-        diagonalSkinWidth = new Vector2(skinWidth * slope, skinWidth).magnitude;
-      }
-      else {
-        diagonalSkinWidth = new Vector2(skinWidth, (1 / slope) * skinWidth).magnitude;
-      }
+    float slope = Mathf.Abs(velocity.x) / Mathf.Abs(velocity.y);
+    float diagonalSkinWidth;
+    if (slope <= 1) {
+      diagonalSkinWidth = new Vector2(skinWidth * slope, skinWidth).magnitude;
+    }
+    else {
+      diagonalSkinWidth = new Vector2(skinWidth, (1 / slope) * skinWidth).magnitude;
+    }
 
-      float rayLength = velocity.magnitude + diagonalSkinWidth;
-      RaycastHit2D hit = Physics2D.Raycast(rayOrigin, velocity, rayLength, collisionMask);
+    float rayLength = velocity.magnitude + diagonalSkinWidth;
+    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, velocity, rayLength, collisionMask);
 
-      //Debug.DrawRay(rayOrigin, velocity.normalized * rayLength, Color.white);
-      if (hit) {
-        velocity = velocity.normalized * (hit.distance - diagonalSkinWidth);
-      }
+    Debug.DrawRay(rayOrigin, velocity.normalized * rayLength, Color.white);
+    if (hit) {
+      velocity = velocity.normalized * (hit.distance - diagonalSkinWidth);
+    }
+  }
+
+  void DiagonalCollisionRight(ref Vector3 velocity) {
+    Vector3 rayOrigin = Vector3.zero;
+    if (velocity.x > 0 && velocity.y < 0) {
+      rayOrigin = raycastOrigins.bottomRight;
+    }
+    else if (velocity.x > 0 && velocity.y > 0) {
+      rayOrigin = raycastOrigins.topRight;
+    }
+
+    float slope = Mathf.Abs(velocity.x) / Mathf.Abs(velocity.y);
+    float diagonalSkinWidth;
+    if (slope <= 1) {
+      diagonalSkinWidth = new Vector2(skinWidth * slope, skinWidth).magnitude;
+    }
+    else {
+      diagonalSkinWidth = new Vector2(skinWidth, (1 / slope) * skinWidth).magnitude;
+    }
+
+    float rayLength = velocity.magnitude + diagonalSkinWidth;
+    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, velocity, rayLength, collisionMask);
+
+    Debug.DrawRay(rayOrigin, velocity.normalized * rayLength, Color.white);
+    if (hit) {
+      velocity = velocity.normalized * (hit.distance - diagonalSkinWidth);
+    }
   }
 
   void ClimbSlope(ref Vector3 velocity, float slopeAngle) {
@@ -159,9 +184,9 @@ public class Controller2D : MonoBehaviour {
   }
 
 	void UpdateRaycastOrigins() {
-		Bounds bounds = collider.bounds;
+		Bounds bounds = boxCollider.bounds;
 		// So that the bounds are shrunken inward:
-		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box collider which is good because (?)
+		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box boxCollider which is good because (?)
 
 		// So if you think of a box, this will represent the raycast origin:
 		raycastOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);	// from the bottom left vertex
@@ -193,13 +218,14 @@ public class Controller2D : MonoBehaviour {
 										y-axis of BoxCollider2D
 	*/
 	void CalculateRaySpacing() {
-		Bounds bounds = collider.bounds;
+		Bounds bounds = boxCollider.bounds;
 		// So that the bounds are shrunken inward:
-		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box collider which is good because (?)
+		bounds.Expand(skinWidth * -2); // Causes the origin of our rays to be slightly INSIDE of the players box boxCollider which is good because (?)
 
 		// This will make sure that at least 2 rays are being fired:
 		horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);	// horizontally
 		verticalRayCount = Mathf.Clamp(verticalRayCount, 2, int.MaxValue);			// vertically
+    diagonalRayCount = Mathf.Clamp(diagonalRayCount, 2, int.MaxValue);
 
 		// This will evenly distribute rays:
 		horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);		// horizontally by dividing the BoxCollider2D's y axis by the total number of horizontal rays being fired - 1
