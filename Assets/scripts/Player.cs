@@ -251,9 +251,15 @@ public class Attributes {
     //TODO: Discuss whether this should be a float or int
     public float MaxHealth;
 
+<<<<<<< HEAD
     //TODO: Discuss what other resistances the player will have
     public float MaxPhysicalDefense;
     public float MaxMagicDefense;
+=======
+  //TODO: Discuss what other resistances the player will have
+  public float MaxAttackDefense;
+  public float MaxMagicDefense;
+>>>>>>> parent of ee25934... Small adjustments to Attributes class in Player.cs file
 
     //TODO: Discuss what other damage types the player will have
     public float MaxMagicDamage;
