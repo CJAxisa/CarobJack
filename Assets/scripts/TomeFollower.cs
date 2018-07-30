@@ -22,9 +22,9 @@ public class TomeFollower : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
 
-        if (player.GetComponent<Player>().facingRight == true)
+        if (player.GetComponent<StateManager>().facingRight == true)
             targetLocation = player.transform.position - offset;
         else
             targetLocation = player.transform.position - new Vector3(-offset.x, offset.y, 0f);
@@ -36,7 +36,7 @@ public class TomeFollower : MonoBehaviour
         {
             velocity *= (Vector3.Distance(transform.position, targetLocation) *0.5f);
         }
-        
+
         //Vector3.
         //transform.Translate(velocity);
         transform.position = transform.position + velocity;
