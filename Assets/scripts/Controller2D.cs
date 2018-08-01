@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +10,9 @@ public class Controller2D : MonoBehaviour {
 	const float skinWidth = .015f;		// We choose some arbitrarily small number
 	public int horizontalRayCount = 4;		// The number of rays that are fired horizontally
 	public int verticalRayCount = 4;			// The number of rays that are fired vertically
-  public int diagonalRayCount = 4;
+    public int diagonalRayCount = 4;
 
-  float maxClimbAngle = 80;
+    float maxClimbAngle = 80;
 
 	float horizontalRaySpacing;			// the distance between each horizontal ray
 	float verticalRaySpacing;				// The distance between each vertical ray
@@ -38,12 +38,12 @@ public class Controller2D : MonoBehaviour {
 		if(velocity.y != 0) {
 			VerticalCollision(ref velocity); // We are passing in a reference to our velocity
 		}
-    if(velocity.x < 0 && velocity.y != 0) {
-      DiagonalCollisionLeft(ref velocity);
-    }
-    else if(velocity.x > 0 && velocity.y != 0) {
-      DiagonalCollisionRight(ref velocity);
-    }
+        if(velocity.x < 0 && velocity.y != 0) {
+            DiagonalCollisionLeft(ref velocity);
+        }
+        else if(velocity.x > 0 && velocity.y != 0) {
+            DiagonalCollisionRight(ref velocity);
+        }
 
 		transform.Translate (velocity);
 	}
@@ -61,60 +61,57 @@ public class Controller2D : MonoBehaviour {
 
 			// If our raycast hits something then the first thing we want to do is set our x velocity to the amount we have to move to get from our current position to the point at which the ray intersected with an obstacle; essentially the ray distance
 			if(hit) {
-        float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-        if(i == 0 && slopeAngle <= maxClimbAngle) { // this only tests slope against the lowest ray
-           float distanceToSlopeStart = 0;
-           if(slopeAngle != collisions.slopeAngleOld) {
-             distanceToSlopeStart = hit.distance - skinWidth;
-             velocity.x -= distanceToSlopeStart * directionX;
-           }
-           ClimbSlope(ref velocity, slopeAngle);
-           velocity.x += distanceToSlopeStart * directionX;
-        }
+                if(i == 0 && slopeAngle <= maxClimbAngle) { // this only tests slope against the lowest ray
+                    float distanceToSlopeStart = 0;
+                    if(slopeAngle != collisions.slopeAngleOld) {
+                        distanceToSlopeStart = hit.distance - skinWidth;
+                        velocity.x -= distanceToSlopeStart * directionX;
+                    }
+                    ClimbSlope(ref velocity, slopeAngle);
+                    velocity.x += distanceToSlopeStart * directionX;
+                }
 
-        if(!collisions.climbingSlope || slopeAngle > maxClimbAngle) {
+                if(!collisions.climbingSlope || slopeAngle > maxClimbAngle) {
 				    velocity.x = (hit.distance - skinWidth) * directionX;
 				    rayLength = hit.distance; // we change our ray length to the distance between our raycast origin and the object
 
-            if(collisions.climbingSlope) {
-              velocity.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x);
-            }
+                    if(collisions.climbingSlope) {
+                        velocity.y = Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x);
+                    }
 
 				    collisions.left = directionX == -1; // As mentioned on line 44, if we are moving left then directionX = -1
 				    collisions.right = directionX == 1; // ^^
-        }
+                }
 			}
 		}
 	}
-
 
 	void VerticalCollision(ref Vector3 velocity) {
-	  float directionY = Mathf.Sign(velocity.y); 						// If we are moving down, directionY = -1, else directionY = 1
-	  float rayLength = Mathf.Abs(velocity.y) + skinWidth; 	// force velocity.y to be positive
+	    float directionY = Mathf.Sign(velocity.y); 						// If we are moving down, directionY = -1, else directionY = 1
+	    float rayLength = Mathf.Abs(velocity.y) + skinWidth; 	// force velocity.y to be positive
 
-		for(int i = 0; i < verticalRayCount; i++) {
-			Vector2 rayOrigin = (directionY == -1)?raycastOrigins.bottomLeft:raycastOrigins.topLeft;		// If we are moving down then we want our ray to start in the bottom left corner, else we are moving up and we set ray origin to top left
-			rayOrigin += Vector2.right * (verticalRaySpacing * i);		//TODO: figure out why we add velocity.x
-			RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);		// Here we are creating a raycast which starts at rayOrigin, shoots out in the direction Vector2.up * direction.Y, has a length of rayLength, and only collides with objects with a LayerMask equal to collisionMask
+	    for(int i = 0; i < verticalRayCount; i++) {
+	        Vector2 rayOrigin = (directionY == -1)?raycastOrigins.bottomLeft:raycastOrigins.topLeft;		// If we are moving down then we want our ray to start in the bottom left corner, else we are moving up and we set ray origin to top left
+	        rayOrigin += Vector2.right * (verticalRaySpacing * i);		//TODO: figure out why we add velocity.x
+		    RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);		// Here we are creating a raycast which starts at rayOrigin, shoots out in the direction Vector2.up * direction.Y, has a length of rayLength, and only collides with objects with a LayerMask equal to collisionMask
 
-			Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
+		    Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLength, Color.red);
 
-			// If our raycast hits something then the first thing we want to do is set our y velocity to the amount we have to move to get from our current position to the point at which the ray intersected with an obstacle; essentially the ray distance
-			if(hit) {
+		    // If our raycast hits something then the first thing we want to do is set our y velocity to the amount we have to move to get from our current position to the point at which the ray intersected with an obstacle; essentially the ray distance
+		    if(hit) {
+                velocity.y = (hit.distance - skinWidth) * directionY;
+			    rayLength = hit.distance; // we change our ray length to the distance between our raycast origin and the object
+                if(collisions.climbingSlope) {
+                    velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
+                }
 
-				velocity.y = (hit.distance - skinWidth) * directionY;
-				rayLength = hit.distance; // we change our ray length to the distance between our raycast origin and the object
-
-        if(collisions.climbingSlope) {
-          velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
+			    collisions.below = directionY == -1; // As mentioned on line 67, if we are moving down then directionY = -1
+			    collisions.above = directionY == 1;	 // ^^
+	        }
         }
-
-				collisions.below = directionY == -1; // As mentioned on line 67, if we are moving down then directionY = -1
-				collisions.above = directionY == 1;	 // ^^
-			}
-		}
-	}
+   }
 
   void DiagonalCollisionLeft(ref Vector3 velocity) {
     Vector3 rayOrigin = Vector3.zero;
