@@ -1,0 +1,19 @@
+Completed Merging my code with CJ's Code:
+Player.cs
+TomeManager.cs
+
+Added all of my scripts to the project
+
+Errors to deal with:
+NONE
+
+Complete:
+- Making two scenes called _main_scene and test_scene
+- Also moving yuug scene and the menu_scene to the test scene
+- Make sure that the FF_Animator is working
+- Made a separate player perfab for me to work with called player2
+- InputManager needs to have all of the xbox one controls added to it
+- Cleaning up code in all of the scripts:
+	- This includes removing all instances of Animator because we will not be using this anymore
+	- Moving all Yuug animations to the FF_Animator
+	- Moving all of the player states to a single file for better organization
