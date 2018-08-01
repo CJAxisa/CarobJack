@@ -4,7 +4,30 @@ using UnityEngine;
 
 [RequireComponent (typeof (Controller2D), typeof (AudioManager))]
 public class Player : MonoBehaviour {
+    public enum PlayerStates
+    {
+        Empty,
+        Idle,
+        Walking,
+        Rising,
+        Falling,
+        Casting,
+        Floating
+    }
+
+    // Components
+    private Controller2D controller;
+    private FF_Animator playerAnimator;
+    private SpriteRenderer playerSpriteRenderer;
+
+    // Enums
+    [HideInInspector]public PlayerStates currentState;
+    private PlayerStates prevState;
+
+    // GameObjects
     private GameObject [] cameras;
+
+    // Fields - TODO: Use the playerAttributes class to manage player fields
     private Vector3 respawnPoint;
     private float jumpCount;
     private float jumpTimer;
@@ -18,16 +41,32 @@ public class Player : MonoBehaviour {
     public Vector3 velocity;
     public bool isGrounded;
     public bool isFloating;
-
+    public bool facingRight;
     public Attributes playerAttributes = new Attributes();
 
-	Controller2D controller;
-
 	void Start () {
-		controller = GetComponent<Controller2D> ();
-        CheckIfGrounded();
+        controller = GetComponent<Controller2D> ();
+        playerAnimator = GetComponent<FF_Animator>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
+
+        currentState = PlayerStates.Idle;
+        facingRight = true;
         isFloating = false;
-		jumpCount = 0;
+        jumpCount = 0;
+        respawnPoint = new Vector3(-234.8f, 36.375f, 0f);
+
+        InitializeCameras();
+        CheckIfGrounded();
+	}
+
+	void Update () {
+     	CheckIfGrounded();
+        ManageJump();
+        ManageMovement();
+        CheckPlayerStates();
+    }
+
+    void InitializeCameras() {
         cameras = new GameObject[4];
         cameras[0] = GameObject.Find("Main Camera");
         cameras[1] = GameObject.Find("IntroCamera");
@@ -39,18 +78,6 @@ public class Player : MonoBehaviour {
                 cameras[i].SetActive(false);
             }
         }
-
-        respawnPoint = new Vector3(-234.8f, 36.375f, 0f);
-	}
-
-	void Update () {
-     	CheckIfGrounded();
-        ManageJump();
-        ManageMovement();
-    }
-
-    void Attack()
-    {
     }
 
     void CheckIfGrounded() {
@@ -98,11 +125,79 @@ public class Player : MonoBehaviour {
       controller.Move(velocity * Time.deltaTime);
     }
 
+    void CheckPlayerStates() {
+        // Used for checking if state has changed since last frame
+        prevState = currentState;
+
+        //animation stuff
+        if (velocity.x > 0)
+            facingRight = true;
+        else if (velocity.x < 0)
+            facingRight = false;
+
+        if (isGrounded && Mathf.Abs(velocity.x) > 0)
+            currentState = PlayerStates.Walking;
+        if (isGrounded && velocity.x == 0)
+            currentState = PlayerStates.Idle;
+        if (!isGrounded && velocity.y < 0)
+            currentState = PlayerStates.Falling;
+        if (!isGrounded && velocity.y > 0)
+            currentState = PlayerStates.Rising;
+        if (isFloating)
+            currentState = PlayerStates.Floating;
+
+        if (Input.GetButton("Cast3"))
+            currentState = PlayerStates.Casting;
+
+        if(playerAnimator != null && playerSpriteRenderer != null) {
+            if (facingRight)
+                //playerAnimator.SetFacing("right");
+                playerSpriteRenderer.flipX = false;
+            else
+                //playerAnimator.SetFacing("left");
+                playerSpriteRenderer.flipX = true;
+        }
+
+        if (prevState != currentState && playerAnimator != null)
+        {
+            //Debug.Log("STATE HAS CHANGED");
+            switch (currentState)
+            {
+                case PlayerStates.Idle:
+                    if(prevState == PlayerStates.Casting)
+                        playerAnimator.SetAnimation("Idle", true, 0);
+                    else
+                        playerAnimator.SetAnimation("Idle", false, 0);
+                    break;
+                case PlayerStates.Walking:
+                    playerAnimator.SetAnimation("Walking", false, 0);
+                    break;
+                case PlayerStates.Rising:
+                    playerAnimator.SetAnimation("Rising", false, 0);
+                    break;
+                case PlayerStates.Falling:
+                    playerAnimator.SetAnimation("Falling", false, 0);
+                    break;
+                case PlayerStates.Casting:
+                    playerAnimator.SetAnimation("Casting", false, 0);
+                    break;
+                case PlayerStates.Floating:
+                    playerAnimator.SetAnimation("Rising", false, 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    void Attack() {
+    }
+
 	void OnTriggerEnter2D(Collider2D collider) {
 		if(collider.gameObject.CompareTag("Hazard")) {
             print("Hazard detected!");
             gameObject.transform.position = respawnPoint;
-            gameObject.GetComponent<StateManager>().createTomes();
+            gameObject.GetComponent<TomeManager>().CreateFloatingTomes();
             cameras[1].SetActive(true);
         }
         if(collider.gameObject.CompareTag("Enemy")) {

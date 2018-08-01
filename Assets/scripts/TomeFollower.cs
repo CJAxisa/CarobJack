@@ -24,7 +24,7 @@ public class TomeFollower : MonoBehaviour
     void Update()
     {
 
-        if (player.GetComponent<StateManager>().facingRight == true)
+        if (player.GetComponent<Player>().facingRight == true)
             targetLocation = player.transform.position - offset;
         else
             targetLocation = player.transform.position - new Vector3(-offset.x, offset.y, 0f);
